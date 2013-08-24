@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+        <title>
+            HPe-rc Config
+        </title>
+        <link rel="stylesheet" type="text/css" href="base.css">
+        <script type='text/javascript' src='jquery-1.8.2.min.js'></script>
+        <script type='text/javascript' src='base.js'></script>
+    </head>
+    <body>
+        <div id="wrapper">
+        <div id="headerwrap">
+        <div id="header">
+            <img class='left' src='HPe-rc64.png'><div class='T1'>HPe-rc Web Interface</div><div class='T2'>Configuration</div>
+        </div>
+        </div>  
+            <div class='clearer'></div>
+            <form id="form_config" method="post" action="post/config" name="form_config">
+            <fieldset>
+                <legend>Port Settings</legend>
+                <div class="inputset">
+                    <label for="port1">port1</label><input class="left" type="text" name="port1" id="port1">
+                </div>
+                <div class="inputset">
+                    <label for="port2">port2</label> <input class="left" type="text" name="port2" id="port2">
+                </div>
+                <div class="inputset">
+                    <label for="port1_baud">port1_baud</label> <input class="left" type="text" name="port1_baud" id="port1_baud">
+                </div>
+                <div class="inputset">
+                    <label for="port2_baud">port2_baud</label> <input class="left" type="text" name="port2_baud" id="port2_baud">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Logging</legend>
+                <div class="inputset">
+                    <label for="loglevel">loglevel</label> <select class="left" name="loglevel" id="loglevel">
+                        <option value="10">
+                            DEBUG
+                        </option>
+                        <option value="20">
+                            INFO
+                        </option>
+                        <option value="30">
+                            WARNING
+                        </option>
+                        <option value="40">
+                            ERROR
+                        </option>
+                        <option value="50">
+                            CRITICAL
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="log_file">log_file</label> <select class="left" name="log_file" id="log_file">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="log_path">log_path</label> <input class="left" type="text" name="log_path" id="log_path">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Raw Data Settings</legend>
+                <div class="inputset">
+                    <label for="rd_input">rd_input</label> <input class="left" type="text" name="rd_input" id="rd_input">
+                </div>
+                <div class="inputset">
+                    <label for="rd_filter">rd_filter</label> <select class="left" name="rd_filter" id="rd_filter">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="rd_level">rd_level</label> <input class="left" type="text" name="rd_level" id="rd_level">
+                </div>
+                <div class="inputset">
+                    <label for="rd_sample">rd_sample</label> <input class="left" type="text" name="rd_sample" id="rd_sample">
+                </div>
+                <div class="inputset">
+                    <label for="rd_threshold">rd_threshold</label> <input class="left" type="text" name="rd_threshold" id="rd_threshold">
+                </div>
+                <div class="inputset">
+                    <label for="rd_freq">rd_freq</label> <input class="left" type="text" name="rd_freq" id="rd_freq">
+                </div>
+                <div class="inputset">
+                    <label for="rd_mode">rd_mode</label> <select class="left" name="rd_mode" id="rd_mode">
+                        <option value="AUTO">
+                            AUTO
+                        </option>
+                        <option value="AM">
+                            AM
+                        </option>
+                        <option value="FM">
+                            FM
+                        </option>
+                        <option value="NFM">
+                            NFM
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="rd_att">rd_att</label> <select class="left" name="rd_att" id="rd_att">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="rd_rectime">rd_rectime</label> <input class="left" type="text" name="rd_rectime" id="rd_rectime">
+                </div>
+                <div class="inputset">
+                    <label for="rd_timeout">rd_timeout</label> <input class="left" type="text" name="rd_timeout" id="rd_timeout">
+                </div>
+                <div class="inputset">
+                    <label for="rd_file">rd_file</label> <select class="left" name="rd_file" id="rd_file">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="rd_path">rd_path</label> <input class="left" type="text" name="rd_path" id="rd_path">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Monitor Mode</legend>
+                <div class="inputset">
+                    <label for="mon_cmd">mon_cmd</label> <select class="left" name="mon_cmd" id="mon_cmd">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="mon_file">mon_file</label> <select class="left" name="mon_file" id="mon_file">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="mon_expire">mon_expire</label> <input class="left" type="text" name="mon_expire" id="mon_expire">
+                </div>
+                <div class="inputset">
+                    <label for="mon_format">mon_format</label> <input class="left" type="text" name="mon_format" id="mon_format">
+                </div>
+                <div class="inputset">
+                    <label for="mon_path">mon_path</label> <input class="left" type="text" name="mon_path" id="mon_path">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Feed Mode</legend>
+                <div class="inputset">
+                    <label for="feed_loop">feed_loop</label> <select class="left" name="feed_loop" id="feed_loop">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="feed_path">feed_path</label> <input class="left" type="text" name="feed_path" id="feed_path">
+                </div>
+                <div class="inputset">
+                    <label for="feed_delay">feed_delay</label> <input class="left" type="text" name="feed_delay" id="feed_delay">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Web Mode</legend>
+                <div class="inputset">
+                    <label for="web_host">web_host</label> <input class="left" type="text" name="web_host" id="web_host">
+                </div>
+                <div class="inputset">
+                    <label for="web_port">web_port</label> <input class="left" type="text" name="web_port" id="web_port">
+                </div>
+                <div class="inputset">
+                    <label for="web_readonly">web_readonly</label> <select class="left" name="web_readonly" id="web_readonly">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="web_ip">web_ip</label> <input class="left" type="text" name="web_ip" id="web_ip">
+                </div>
+                <div class="inputset">
+                    <label for="web_browser">web_browser</label> <select class="left" name="web_browser" id="web_browser">
+                        <option value="ON">
+                            ON
+                        </option>
+                        <option value="OFF">
+                            OFF
+                        </option>
+                    </select>
+                </div>
+                <div class="inputset">
+                    <label for="web_check">web_check</label> <input class="left" type="text" name="web_check" id="web_check">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Other Settings</legend>
+                <div class="inputset">
+                    <label for="dateformat">dateformat</label> <input class="left" type="text" name="dateformat" id="dateformat">
+                </div>
+                <div class="inputset">
+                    <label for="cfg_path">cfg_path</label> <input class="left" type="text" name="cfg_path" id="cfg_path">
+                </div>
+            </fieldset>       
+            <fieldset>            
+                <legend>Save Settings</legend>
+                <div class="inputset">
+                    <label for="form_cmd">Restart Web Server</label> <input type="checkbox" name="form_cmd" value="restart">
+                </div>
+                        <input type="hidden" name="form_id" value="config"><input id="saveForm" class="button2 button-width" type="submit" name="submit" value="Save">
+
+            </fieldset>    
+        </form>
+    </div>
+    <div class='clearer'></div>
+    </body>
+</html>

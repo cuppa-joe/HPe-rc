@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            HPe-rc Web Interface
+        </title>
+        <link rel="stylesheet" type="text/css" href="base.css">
+        <script type='text/javascript' src='jquery-1.8.2.min.js'>
+</script>
+        <script type='text/javascript' src='base.js'>
+</script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="headerwrap">
+                <div id="header">
+                    <img class='left' src='HPe-rc64.png' alt="#########">
+                    <div class='T1'>
+                        HPe-rc Web Interface
+                    </div>
+                    <div class='T2'>
+                        Virtual Scanner Control
+                    </div>
+                </div>
+            </div>
+            <div id="navigationwrap">
+                <div id="navigation">
+                    <div class='center menubar default' id='monitor'>
+                        <a href="#" class='main-button button-width center connect' title='Connect' id="connect-button-monitor" name="connect-button"><div class='spin center'><span class='text'>CONNECT</span></div></a> 
+                        <a href="#" class='main-button button-width center' title='Scan' id="scan-button-monitor" name="scan-button">SCAN</a>
+                        <a href="#" class='main-button button-width center' title='Attenuator' id="att-button" name="att-button"><span class='ind_g_att'>&bull;</span>&nbsp;ATT</a> 
+                        <a href="#" class='main-button button-width center' title='Mute' id="mute-button" name="mute-button"><span class='ind_g_mute'>&bull;</span>&nbsp;MUTE</a>
+                        <a href="#" class='main-button button-width center' title='Record' id="record-button" name="record-button"><span class='ind_g_record'>&bull;</span>&nbsp;RECORD</a>
+                        <a href="#" class='main-button button-width center' id="replay-button" name="replay-button">REPLAY</a>
+                        <a href="#" class='main-button button-width center' title='Squelch' id="squelch-button">
+                            <div class='arrow-left left' id="sql_down" title='-' name="sql_down"></div>SQL&nbsp;<span id='SQL'>&nbsp;</span><div class='arrow-right right' id="sql_up" title='+' name="sql_up"></div>
+                        </a>
+                        <a href="#"  class='main-button button-width center' title='Volume' id="volume-monitor">
+                            <div class='arrow-left left' id="vol_down-monitor" title='-' name="vol_down"></div>VOL&nbsp;<span id='VOL'>&nbsp;</span><div class='arrow-right right' id="vol_up-monitor" title='+' name="vol_up"></div>
+                        </a>
+                    </div>
+                    <div class='center menubar' id='replay'>
+                        <a href="#" class='main-button button-width center connect' title='Connect' id="connect-button-replay" name="connect-button"><span class='text'>CONNECT</span></a> 
+                        <a href="#" class='main-button button-width center' title='Scan' id="scan-button-replay" name="scan-button">SCAN</a>
+                        <a href="#" class='main-buttonD button-width center'>&nbsp;</a>
+                        <a href="#" class='main-buttonD button-width center'>&nbsp;</a>
+                        <a href="#" class='main-button button-width center' title='Previous' id="rp_prev"><div class='arrow-left left'></div>PREV</a>
+                        <a href="#" class='main-button button-width center pause' title='Pause' id="rp_pause"><div class='icon-pause left'></div><span class='text'>PAUSE</span></a>
+                        <a href="#" class='main-button button-width center' title='Next' id="rp_next"><div class='arrow-right right'></div>NEXT</a>
+                        <a href="#" class='main-button button-width center' title='Volume' id="volume-replay">
+                            <div class='arrow-left left' id="vol_down-replay" title='-' name="vol_down"></div>VOL&nbsp;<span id='VOL-replay'>&nbsp;</span><div class='arrow-right right' id="vol_up-replay" title='+' name="vol_up"></div>
+                        </a>
+                    </div>
+                    <div class='center menubar' id='feed'>
+                        <a href="#" class='main-button button-width center connect' title='Connect' id="connect-button-feed" name="connect-button">CONNECT</a> 
+                        <a href="#" class='main-button button-width center' title='Scan' id="scan-button-feed" name="scan-button">SCAN</a>
+                        <a href="#" class='main-buttonD button-width center' title='Scan' name="scan-button">Test</a>
+                        <a href="#" class='main-buttonD button-width center' title='Scan' name="scan-button">Test</a>
+                        <a href="#" class='main-buttonD button-width center' title='Scan' name="scan-button">Test</a>
+                        <a href="#" class='main-buttonD button-width center' title='Scan' name="scan-button">Test</a>
+                        <a href="#" class='main-buttonD button-width center' title='Scan' name="scan-button">Test</a>
+                        <a href="#" class='main-buttonD button-width center' title='Scan' name="scan-button">Test</a>
+
+                    </div>
+                </div>
+            </div>
+            <div id="contentwrap">
+                <div class="content" title='Channel Display' id='alt_channel_hold'>
+                    <div class="left" id="touch_channel_prev"></div>
+                    <div id="touch_channel_hold"></div>
+                    <div class="right" id="touch_channel_next"></div>
+                    <div class='T1 field left' id='channel'></div>
+                    <div class='T1 field right' id='frequency'></div>
+                    <div class='clear left T2 field' id='service_name'></div>
+                    <div class='T2 field right' id='mode'></div>
+                </div>
+                <div class="content" title='Department Display' id='alt_department_hold'>
+                    <div class="left" id="touch_department_prev"></div>
+                    <div id="touch_department_hold"></div>
+                    <div class="right" id="touch_department_next"></div>
+                    <div class='T1 field' id='department'></div>
+                    <div class='left T2'></div>
+                </div>
+                <div class="content" title='System Display' id='alt_system_hold'>
+                    <div class="left" id="touch_system_prev"></div>
+                    <div id="touch_system_hold"></div>
+                    <div class="right" id="touch_system_next"></div>
+                    <div class='T1 field' id='system'></div>
+                    <div class='left T2 field' id='favorites_list'></div>
+                </div>
+                <div class="status-content" title="Status Display">
+                    <div id='tool_menu' title="Tools Menu">
+                        <div id="tool_wrap">
+                        <div class='right T5' title="HPe-rc Website"><a class="menu-button mb1 center" target="_blank" href="http://hp.xoynq.com">HPe-rc Web</a></div>
+                        <div class='left T5' title="HPe-rc Configuration"><a class="menu-button mb1 center" target="_blank" href="config.html">Configuration</a></div>
+                        <div class='left T5' title="Edit Active Favorites Lists"><a class="menu-button mb1 center" target="_blank" href="favorites.html">Favorites</a></div>
+                        <div class='left T5' title="Download Monitor Mode Logs"><a class="menu-button mb1 center" target="_blank" href="monitor.html">Monitor Logs</a></div>
+                        <div class='left T5' title="Download Feed Mode Files"><a class="menu-button mb1 center" target="_blank" href="feeds.html">Feed Files</a></div>
+                        <div class='left T5' title="Images can not be captured when receiving in Scan Mode unless recording is disabled by removing the batteries and using AC power."><a class="menu-button mb1 center" id="screenshot-button" href="#">Screenshot</a></div>
+                        <div class='left T5' title="Terminate Program. Active functions must be disconnected."><a class="menu-button mb2 center" id="kill-button" href="#">Terminate</a></div>
+                        </div>
+                    </div>    
+                    <div class='right w20'>
+                        <div class='sbars right' title='Signal Level'>
+                            <div class='sbar-0 bar'></div>
+                            <div class='sbar-1 bar'></div>
+                            <div class='sbar-2 bar'></div>
+                            <div class='sbar-3 bar'></div>
+                            <div class='sbar-4 bar'></div>
+                        </div>
+                    </div>
+                    <div class='left w20'>
+                        <div class='right T4 field' id='subtone_string'></div>
+                        <div class='right T4 field' id='uid'></div>
+                        <div class='left T4 field' id='sub_uid'></div>
+                    </div>
+                    <div class='w20 field T4 center upper' id='status'></div>
+                </div>
+            </div>
+            <div id="leftcolumnwrap">
+                <div class="leftcolumn">
+                    <div class='npwrapper center'>
+                        <a href="#" title='Channel Hold' class='small-button' id="ind_channel_hold" name="ind_channel_hold">H</a>
+                    </div>
+                    <div class='npwrapper center'>
+                        <a href="#" title='Channel Avoid' class='small-button' id="ind_channel_avoid" name="ind_channel_avoid">A</a>
+                    </div>
+                    <div class='npwrapper center'>
+                        <a href="#" class='arrow-left left' id="ind_channel_prev" title='Previous Channel'></a><a href="#" class='arrow-right right' id="ind_channel_next" title='Next Channel'></a>
+                    </div>
+                </div>
+                <div class="leftcolumn">
+                    <div class='npwrapper center'>
+                        <a href="#" title='Department Hold' class='small-button' id="ind_department_hold" name="ind_department_hold">H</a>
+                    </div>
+                    <div class='npwrapper center'>
+                        <a href="#" title='Department Avoid' class='small-button' id="ind_department_avoid" name="ind_department_avoid">A</a>
+                    </div>
+                    <div class='npwrapper center'>
+                        <a href="#" class='arrow-left left' id="ind_department_prev" title='Previous Department'></a><a href="#" class='arrow-right right' id="ind_department_next" title='Next Department'></a>                        
+                    </div>
+                </div>
+                <div class="leftcolumn">
+                    <div class='npwrapper center'>
+                        <a href="#" title='System Hold' class='small-button center' id="ind_system_hold" name="ind_system_hold">H</a>
+                    </div>
+                    <div class='npwrapper center'>
+                        <a href="#" title='System Avoid' class='small-button center' id="ind_system_avoid" name="ind_system_avoid">A</a>
+                    </div>
+                    <div class='npwrapper center'>
+                        <a href="#" class='arrow-left left' id="ind_system_prev" title='Previous System'></a><a href="#" class='arrow-right right' id="ind_system_next" title='Next System'></a>                                            
+                    </div>
+                </div>
+                <div class="tool-content" title="Tools">
+                    <div id='tool_button' class="gear center"></div>
+                </div>
+            </div>
+            <div id="footerwrap">
+                <div class='subfooter right'>
+                    <span class='field' id='hp_model'></span>&nbsp;<span class='field' id='hp_firmware'></span>
+                </div>
+                <div class='subfooter left'>
+                    <span class='field' id='version'></span>
+                </div>
+                <div class='subfooter center'>
+                    <span class='field' id='test-data'>&nbsp;&nbsp;</span>
+                </div>
+            </div>
+            <div class='clearer'></div>
+            <a href="#" class='main-button button-width center connect debug' title='Test' id="test-data-button" name="test-data-button">Test</a>
+        </div>
+    </body>
+</html>
