@@ -1,13 +1,15 @@
 {% include top.html %}
-
 <body class="wrap">
 <div id="container">
-  <div id="sidebar">
-  {% include sidebar.html %}
-  </div>
-  <div id="content">
-  {{ content }}
-  </div>
+<div id="sidebar">
+{% include ad-header.html %}
+{% include sidebar.html %}
+</div>
+<div id="content">
+{{ content }}
+{% include ad-footer.html %}
+{% include privacy.html %}
+</div>
 </div>
 </body>
 </html>

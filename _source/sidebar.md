@@ -5,10 +5,12 @@
 -   [Operation](#operation)
     -   [Basic Operation](#basic-operation)
         -   [Non-Interactive Operation](#non-interactive-operation)
+
     -   [Setting Parameters](#setting-parameters)
         -   [Basic Parameters](#basic-parameters)
         -   [Date Format](#date-format)
         -   [Variable Substitution](#variable-substitution)
+
     -   [Web UI](#web-ui)
     -   [Monitor Mode](#monitor-mode)
     -   [Audio Feed](#audio-feed)
@@ -16,6 +18,8 @@
     -   [Command Reference](#command-reference)
         -   [Replay Mode Commands](#replay-mode-commands)
         -   [Program Mode Commands](#program-mode-commands)
+
 -   [Troubleshooting](#troubleshooting)
 -   [Downloads](#downloads)
 -   [Contact Us](#contact-us)
+
