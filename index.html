@@ -2,8 +2,552 @@
 layout: default
 title: HPe-rc HomePatrol Remote Control
 overview: true
----
+--- 
 
-<div>Test</div>
-
-_Test Page_
+<div class="figure">
+<img src="img/HPe-rc64.png" />
+</div>
+<h1 id="hpe-rc">HPe-rc</h1>
+<p>A Command-Line Utility for the Uniden HomePatrol</p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#latest-news">Latest News</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#operation">Operation</a>
+<ul>
+<li><a href="#basic-operation">Basic Operation</a>
+<ul>
+<li><a href="#non-interactive-operation">Non-Interactive Operation</a></li>
+</ul></li>
+<li><a href="#setting-parameters">Setting Parameters</a>
+<ul>
+<li><a href="#basic-parameters">Basic Parameters</a></li>
+<li><a href="#date-format">Date Format</a></li>
+<li><a href="#variable-substitution">Variable Substitution</a></li>
+</ul></li>
+<li><a href="#web-ui">Web UI</a></li>
+<li><a href="#monitor-mode">Monitor Mode</a></li>
+<li><a href="#audio-feed">Audio Feed</a></li>
+<li><a href="#mozTocId417001">Raw Data [Experimental]</a></li>
+<li><a href="#command-reference">Command Reference</a>
+<ul>
+<li><a href="#replay-mode-commands">Replay Mode Commands</a></li>
+<li><a href="#program-mode-commands">Program Mode Commands</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#downloads">Downloads</a></li>
+<li><a href="#contact-us">Contact Us</a></li>
+</ul>
+<div class="figure">
+<img src="img/HP-1.png" title="HomePatrol-1 Scanner" />
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>HPe-rc is a command line program for controlling the Uniden HomePatrol-1 Scanner. All functions of the published remote control specification (2.05) are implemented, including downloading audio files and reading raw discriminator data.</p>
+<p>Binaries are available for Windows systems. The source code will run on any system with <a href="http://www.python.org/">Python</a> 2.6 or 2.7, and the <a href="http://pyserial.sourceforge.net/">pySerial</a> module.</p>
+<h2 id="latest-news">Latest News</h2>
+<p>{% assign post = site.posts.first %} {% assign content = post.content %}</p>
+<h3 id="post.title">{{ post.title }}</h3>
+<p>{{ post.content }}</p>
+<h2 id="requirements">Requirements</h2>
+<p>This program requires a HomePatrol Scanner with firmware version 2.02 or higher and the optional Extreme Upgrade. A USB connection and working USB Serial Port drivers are also required.</p>
+<p>USB Serial Port drivers for Windows systems are available from <a href="http://info.uniden.com/HomePatrol">Uniden</a>. Windows will also require MSVCR90.DLL, which can be downloaded from <a href="http://www.microsoft.com/download/en/details.aspx%20displaylang=en&amp;id=29">Microsoft</a> if it is not already available on the system. This software has been tested with the Uniden serial driver on Windows 2000, XP, Windows 7, and Windows 8 Release Preview.</p>
+<h2 id="installation">Installation</h2>
+<p>For Microsoft Windows, HPe-rc is distributed as a compressed (zip) archive which includes a self-extracting installer. Downloads for 64-bit and 32-bit systems are available. Extract and run the installer.</p>
+<p>For Linux and similar systems, HPe-rc is distributed as a compressed (tar.gz) archive which contains the program source. Extract and run HPe-rc.py using the python interpreter.</p>
+<h2 id="operation">Operation</h2>
+<h3 id="basic-operation">Basic Operation</h3>
+<p>The HomePatrol and PC should be connected using the USB cable. Select &quot;Serial Port&quot; when prompted on the scanner screen. To start using HPe-rc, specify the serial port where the scanner is connected. Parameters are changed using the <a href="#HP_CMD-set">set</a> command.</p>
+<p>Example: <code>Not Connected&gt; set port1=com6</code></p>
+<p>Before issuing commands, open a connection to the HP-1 using the <a href="#HP_CMD-open">open</a> command.</p>
+<p>Example: <code>Not Connected&gt; open</code></p>
+<p>To stop the connection to the scanner, use the <a href="#HP_CMD-close">close</a> command. Open serial ports are also closed when using the <a href="#HP_CMD-bye">bye</a> command to exit the program.</p>
+<p>Example: <code>HomePatrol-1&gt; bye</code></p>
+<p>See the following sections for information on setting parameters and available commands.</p>
+<h4 id="non-interactive-operation">Non-Interactive Operation</h4>
+<p>Commands may also be read from a text file. Enter one command per line, then pipe the file to HPe-rc.</p>
+<p>Example: <code>C:\Program Files\HPe-rc&gt;hpe-rc port1=com6 &lt;commands.txt</code></p>
+<p>A single command may be specified on the command-line by using the <strong>cmd</strong> parameter. HPe-rc will execute the command, then exit.</p>
+<p>Example: <code>C:\Program Files\HPe-rc&gt;hpe-rc cmd=web</code></p>
+<h3 id="setting-parameters">Setting Parameters</h3>
+<p>Parameters can be set on the command line, or within the program itself. Multiple parameters can set on one line, and keywords may be specified as upper or lower case.</p>
+<p>Example: <code>C:\Program Files\HPe-rc&gt;hpe-rc loglevel=10 logfile=ON</code></p>
+<p>Or: <code>HomePatrol-1&gt; set loglevel=10 logfile=ON</code></p>
+<p>To see the current settings, type <a href="#HP_CMD-get">get</a> at the HPe-rc prompt. For a subset of settings, type get followed by a string, such as &quot;path&quot; to match all settings which contain that word.</p>
+<p>Example: <code>HomePatrol-1&gt; get path</code></p>
+<p>Parameters also can be saved and loaded together in sets using the <a href="#HP_CMD-save">save</a> and <a href="#HP_CMD-load">load</a> commands.</p>
+<p>Example: <code>HomePatrol-1&gt; save acars</code></p>
+<p>A set of default values which cannot be modified is created when a set is first saved. To reload these values, type load DEFAULT at the HPe-rc command prompt. Settings can also be quickly saved and restored by using save and load without a set name.``</p>
+<h4 id="basic-parameters">Basic Parameters</h4>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code>port1</code></td>
+<td align="left"><code>The serial port used to connect to the scanner</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>port2</code></td>
+<td align="left"><code>A serial port used for raw data output</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>port1_baud</code></td>
+<td align="left"><code>Baud rate for port1</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>port2_baud</code></td>
+<td align="left"><code>Baud rate for port2</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>loglevel</code></td>
+<td align="left"><code>Set to 10 to display debugging information</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>logfile</code></td>
+<td align="left"><code>Set ON to log debugging information to disk</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>cfg_path</code></td>
+<td align="left"><code>Location to save config files</code></td>
+</tr>
+</tbody>
+</table>
+<p>Serial ports should be specified by the name used by the operating system, for instance, com5 or /dev/ttyS1. Set port1 to AUTO to attempt to detect the correct port. In some cases, the auto-detection may not work. Example: <code>Not Connected&gt; set port1=AUTO</code> See the Raw Data, Monitor Mode and Audio Feed sections for parameters specific to those operations.</p>
+<h4 id="date-format">Date Format</h4>
+<p>By default, HPe-rc matches the HP-1's internal format for naming audio files (2012-03-21_20-14-13) for all file types so that files have consistent names. Customizing the dateformat will keep this consistency - even when downloading audio files.</p>
+<p>Files will be overwritten unless a format specifier is used that varies with each file, seconds (%S) for example. Characters which are not valid in file names will be removed or replaced.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">%a</td>
+<td align="left">Abbreviated Weekday</td>
+</tr>
+<tr class="even">
+<td align="left">%A</td>
+<td align="left">Full Weekday Name</td>
+</tr>
+<tr class="odd">
+<td align="left">%b</td>
+<td align="left">Abbreviated Month</td>
+</tr>
+<tr class="even">
+<td align="left">%B</td>
+<td align="left">Full Month Name</td>
+</tr>
+<tr class="odd">
+<td align="left">%d</td>
+<td align="left">Day of the Month [01-31]</td>
+</tr>
+<tr class="even">
+<td align="left">%H</td>
+<td align="left">Hour, 24 hour [00-23]</td>
+</tr>
+<tr class="odd">
+<td align="left">%I</td>
+<td align="left">Hour, 12 hour [01-12]</td>
+</tr>
+<tr class="even">
+<td align="left">%j</td>
+<td align="left">Day of the Year [001-366]</td>
+</tr>
+<tr class="odd">
+<td align="left">%m</td>
+<td align="left">Month [01-12]</td>
+</tr>
+<tr class="even">
+<td align="left">%M</td>
+<td align="left">Minute [00-59]</td>
+</tr>
+<tr class="odd">
+<td align="left">%p</td>
+<td align="left">AM or PM</td>
+</tr>
+<tr class="even">
+<td align="left">%S</td>
+<td align="left">Seconds [00-61]</td>
+</tr>
+<tr class="odd">
+<td align="left">%y</td>
+<td align="left">Year, 2 digit [00-99]</td>
+</tr>
+<tr class="even">
+<td align="left">%Y</td>
+<td align="left">Year, 4 digit</td>
+</tr>
+</tbody>
+</table>
+<p>Example: <code>HomePatrol-1&gt; set dateformat=%Y-%m-%d_%H-%M-%S</code></p>
+<p>A complete list of date format specifiers is available <a href="http://docs.python.org/library/datetime.html#strftime-and-strptime-behavior">here</a>.</p>
+<h4 id="variable-substitution">Variable Substitution</h4>
+<p>Variables can be used in several parameters to include system-specific information. The information available depends on the type of system and other settings on the scanner.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center">%(tgid)%</td>
+<td align="center">Talkgroup ID or Frequency</td>
+</tr>
+<tr class="even">
+<td align="center">%(frequency)%</td>
+<td align="center">Frequency or Talkgroup ID</td>
+</tr>
+<tr class="odd">
+<td align="center">%(mode)%</td>
+<td align="center">AM, FM or NFM</td>
+</tr>
+<tr class="even">
+<td align="center">%(att)%</td>
+<td align="center">Attenuator Setting [ON or OFF]</td>
+</tr>
+<tr class="odd">
+<td align="center">%(subtone)%</td>
+<td align="center">CTCSS/DCS code</td>
+</tr>
+<tr class="even">
+<td align="center">%(nac)%</td>
+<td align="center">NAC Code</td>
+</tr>
+<tr class="odd">
+<td align="center">%(service_tag)%</td>
+<td align="center">Service Tag</td>
+</tr>
+<tr class="even">
+<td align="center">%(system)%</td>
+<td align="center">System Name</td>
+</tr>
+<tr class="odd">
+<td align="center">%(department)%</td>
+<td align="center">Department Name</td>
+</tr>
+<tr class="even">
+<td align="center">%(channel)%</td>
+<td align="center">Channel Name</td>
+</tr>
+<tr class="odd">
+<td align="center">%(squelch)%</td>
+<td align="center">Squelch Setting [0-15]</td>
+</tr>
+<tr class="even">
+<td align="center">%(mute)%</td>
+<td align="center">Mute Setting [ON or OFF]</td>
+</tr>
+<tr class="odd">
+<td align="center">%(signal)%</td>
+<td align="center">Signal Level [0-4]</td>
+</tr>
+<tr class="even">
+<td align="center">%(uid)%</td>
+<td align="center">Unit ID</td>
+</tr>
+<tr class="odd">
+<td align="center">%(favorites_list)%</td>
+<td align="center">Favorites List</td>
+</tr>
+<tr class="even">
+<td align="center">%(config_set)%</td>
+<td align="center">Name of current config set</td>
+</tr>
+<tr class="odd">
+<td align="center">%(date)%</td>
+<td align="center">Date/Time (see <a href="#date-format">Date Format</a>)</td>
+</tr>
+<tr class="even">
+<td align="center">%(space)%</td>
+<td align="center">Space Character</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, ~ or ~user can be used in path names for the current user's home directory.</p>
+<h3 id="web-ui">Web UI</h3>
+<p><strong>[Version 0.9+]</strong> The Web UI allows the scanner's operation to be monitored and controlled using a web browser. This feature requires javascript/jQuery/ajax support.</p>
+<p>Use the <a href="#HP_CMD-web">web</a> command to start the Web UI, then open your web browser to the host and port of the computer where the scanner is connected. This will be <a href="http://localhost:8000">http://localhost:8000</a> or <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a> if the browser and HPe-rc are running on the same machine. The port and other parameters can be changed using the <a href="#HP_CMD-set">set</a> command.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code>web_port</code></td>
+<td align="left"><code>Web Server Port</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>web_readonly</code></td>
+<td align="left"><code>Disable commands from web browser [ON or OFF]</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>web_ip</code></td>
+<td align="left"><code>List of IP addresses allowed access</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>web_check</code></td>
+<td align="left"><code>Seconds between checks for audio files to download</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>ajax_refresh</code></td>
+<td align="left"><code>Data refresh rate in milliseconds</code></td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="#monitor-mode">Monitor Mode</a> for additional settings that also apply when using the Web UI.</p>
+<p>The Web UI can also be accessed over a LAN or the Internet with a properly configured computer and router. Check the router documentation for more information on setting firewall and port forwarding options. Access can be restricted to only allowed IP addresses using the <strong>web_ip</strong> parameter. Commands can be ignored from the web browser by setting <strong>web_readonly</strong> to ON. Although multiple web clients can simultaneously access the scanner data, performance may suffer.</p>
+<p>The rate of data requests from the web browser is controlled by <strong>ajax_refresh</strong>. Increasing this value may improve performance on limited platforms, such as a smartphone, tablet or Kindle. It may also help on busy networks or with multiple clients using the Web UI at the same time.</p>
+<p>Audio files can be periodically downloaded from the scanner's recording buffer while using the Web UI. Set <strong>web_check</strong> to the number of seconds between checks. (0=disable) Files will be transfered when the scanner is idle whenever possible. By default, the scanner beeps when checking for new files. This can be disabled by setting the screen tap sound to OFF using the scanner menu or Sentinel software. Real-time scanning status is not available while downloading files.</p>
+<p>Example: <code>HomePatrol-1&gt; web</code></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">CONNECT</td>
+<td align="left">Connect to HPe-rc and start Web UI</td>
+<td align="left">SCAN</td>
+<td align="left">Start or Resume Scanning</td>
+</tr>
+<tr class="even">
+<td align="left">ATT</td>
+<td align="left">Toggle Global Attentuator</td>
+<td align="left">MUTE</td>
+<td align="left">Toggle Mute</td>
+</tr>
+<tr class="odd">
+<td align="left">RECORD</td>
+<td align="left">Toggle Recording Function</td>
+<td align="left">REPLAY </td>
+<td align="left">Replay Mode</td>
+</tr>
+<tr class="even">
+<td align="left">SQL  </td>
+<td align="left">Squelch Down/Up</td>
+<td align="left">VOL </td>
+<td align="left">Volume Down/Up</td>
+</tr>
+<tr class="odd">
+<td align="left">H</td>
+<td align="left">Hold Channel/Department/System</td>
+<td align="left">A</td>
+<td align="left">Avoid Channel/Department/System</td>
+</tr>
+<tr class="even">
+<td align="left">&lt;</td>
+<td align="left">Previous Channel/Department/System</td>
+<td align="left">&gt;</td>
+<td align="left">Next Channel/Department/System</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[Version 0.9.5+]</strong> Touchscreen controls: The Previous, Hold or Next functions for the Channel, Department or System can be activated by touching the left, center or right section of the display area.</p>
+<p>Note: Using Internet Explorer to access the Web UI is not recommended. For best results, use Firefox or Chrome.</p>
+<h3 id="monitor-mode">Monitor Mode</h3>
+<p>Monitor Mode displays an ongoing display of the scanner's status, and optionally, logs this information to disk. The monitor mode log can be customized by specifying a string of data variables to include using the <strong>mon_format</strong> parameter. Not all fields will be available depending on the type of system being monitored. When <strong>mon_file</strong> is set to ON, the log file will be saved to disk. Use the <a href="#HP_CMD-monitor">monitor</a> command to start.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code>mon_format</code></td>
+<td align="left"><code>Format string</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>mon_file</code></td>
+<td align="left"><code>Save to disk [ON or OFF]</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mon_cmd</code></td>
+<td align="left"><code>Allow key commands [ON or OFF]</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>mon_path</code></td>
+<td align="left"><code>Location to save monitor files</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mon_expire</code></td>
+<td align="left"><code>Minimum time in seconds before channel data is expired</code></td>
+</tr>
+</tbody>
+</table>
+<p>Example: <code>HomePatrol-1&gt; set mon_format=%(date)%,%(channel)%``,%(department)%,%(frequency)%</code> Example: <code>HomePatrol-1&gt; monitor</code></p>
+<p><strong>[Version 0.5+]</strong> Key commands can be used in monitor mode to control the scanner.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">a</td>
+<td align="left">Avoid Channel</td>
+</tr>
+<tr class="even">
+<td align="left">c</td>
+<td align="left">Hold Channel</td>
+</tr>
+<tr class="odd">
+<td align="left">d</td>
+<td align="left">Hold Department</td>
+</tr>
+<tr class="even">
+<td align="left">s</td>
+<td align="left">Hold System</td>
+</tr>
+<tr class="odd">
+<td align="left">n</td>
+<td align="left">Next Channel</td>
+</tr>
+<tr class="even">
+<td align="left">p</td>
+<td align="left">Previous Channel</td>
+</tr>
+<tr class="odd">
+<td align="left">m</td>
+<td align="left">Mute</td>
+</tr>
+<tr class="even">
+<td align="left">+</td>
+<td align="left">Volume Up</td>
+</tr>
+<tr class="odd">
+<td align="left">-</td>
+<td align="left">Volume Down</td>
+</tr>
+<tr class="even">
+<td align="left">q</td>
+<td align="left">Exit Monitor Mode</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[Version 0.7+]</strong> By default, a channel is not logged to disk when the same channel is subsequently received, regardless of the length of time between transmissions. To change this behavior, set the <strong>mon_expire</strong> parameter to the minimum number of seconds to wait before logging the same channel again. (0 will disable this feature.) Channels will not be logged more than once for the same transmission.</p>
+<h3 id="audio-feed">Audio Feed</h3>
+<p>The audio feed mode downloads WAV files from the recording buffer on the scanner. Files are named according to the <strong>dateformat</strong> parameter. By default, this matches the format used internally by the scanner. Audio files are automatically deleted after they are transferred successfully.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code>feed_loop</code></td>
+<td align="left"><code>Continue to check for new files [ON or OFF]</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>feed_delay</code></td>
+<td align="left"><code>Milliseconds between checks for new files</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>feed_path</code></td>
+<td align="left"><code>Location to save audio files</code></td>
+</tr>
+</tbody>
+</table>
+<p>Example: <code>HomePatrol-1&gt; feed on</code></p>
+<p>System information from the recordings will be displayed as the files are transferred. With <a href="#mozTocId361848">variable substitutions</a>, this information can be used to save recordings in directories based on channel, department, system, service tag or favorites list using the <strong>feed_path</strong> parameter.</p>
+<p>Example: <code>HomePatrol-1&gt; set feed_path=~\feeds\%(system)%\%(department)%\%(channel)%</code></p>
+<p>Directories will be created if they do not exist. Characters which are not valid in directory names will be removed or replaced, so information may not match what is displayed on the scanner.</p>
+<p>Audio Feed mode is automatically stopped once all files have been transferred, unless the <strong>feed_loop</strong> parameter is ON. The process may also aborted by pressing Control-C on the keyboard.</p>
+<p>All available meta-data about recordings is saved with the audio files in JSON format.</p>
+<p>This mode may be stopped manually by using the feed off command. It should not be necessary to use this command unless the scanner is stuck in feed mode.</p>
+<p>Example: <code>HomePatrol-1&gt; feed off</code></p>
+<h3 id="raw-data-experimental">Raw Data [Experimental]</h3>
+<p>This feature is still under development. This documentation may not reflect the latest changes.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code>rd_freq</code></td>
+<td align="left"><code>Frequency to monitor [HZ]</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>rd_mode</code></td>
+<td align="left"><code>Modulation mode [AUTO, AM, FM OR NFM]</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rd_att</code></td>
+<td align="left"><code>Attenuator setting [ON or OFF]</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>rd_timeout</code></td>
+<td align="left"><code>Seconds with no input before timeout</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rd_rectime</code></td>
+<td align="left"><code>Seconds to record data</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>rd_file</code></td>
+<td align="left"><code>Write to file [ON or OFF]</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rd_path</code></td>
+<td align="left"><code>Location to save data files</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>rd_sample</code></td>
+<td align="left"><code>Data slicer sample size</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rd_filter</code></td>
+<td align="left"><code>Low-Pass filter [ON or OFF]</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>rd_threshold</code></td>
+<td align="left"><code>Data slicer decode threshold level</code></td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="img/HPe-cap01.png" title="Raw Data Mode - Scanner Screen" />
+</div>
+<p>Use the set command to setup a raw data session. Frequencies entered in megahertz are automatically converted to hertz.</p>
+<p>Example: <code>HomePatrol-1&gt; set rd_freq=131.550 rd_file=ON</code></p>
+<p>Start raw mode by using the <a href="#HP_CMD-raw">raw</a> command. The data capture may be aborted by pressing the STOP button on the scanner screen, pressing Control-C on the keyboard, or by specifying a maximum recording time using the <strong>rd_rectime</strong> parameter.</p>
+<p>Example: <code>HomePatrol-1&gt; raw</code></p>
+<p>By default, rd_file and port2 are not active. One or both of these should be set properly to use the data collected. Setting rd_file to ON will save raw data as WAV files in the path specified by rd_path.</p>
+<p><strong>[Version 0.3+]</strong> To emulate a 2-level data slicer, specify <strong>port2</strong>. This should point to the input port of a virtual serial port pair. The second virtual port should be used by the decoding program. Under Windows, these ports requires setting up <a href="http://com0com.sourceforge.net/">com0com</a>. Two variables are used to control the data slicing mode: <strong>rd_sample</strong> indicates the samples per second made from the raw data. The baud rate of the signal divided by 75 is a good starting point. The <strong>rd_threshold</strong> variable controls the threshold between decoding a 0 and a 1; 64 is the default value.</p>
+<p><strong>[Version 0.5+]</strong> Specify <strong>rd_filter</strong> to control a low-band filter on the raw data output. Requires HP firmware 2.03+</p>
+<h3 id="command-reference">Command Reference</h3>
+<p><strong>att</strong> <code>[ON|OFF]</code><br />Turn global attenuation ON or OFF. Use this command without an option to check current setting.</p>
+<p><strong>avoid</strong> <code>[system|department|channel]</code> <code>[ON|OFF]</code> Set category avoid status. Use this command without a switch option to check current setting.</p>
+<p><strong>bye</strong><br />Exit program.</p>
+<p><strong>cap</strong><br />Capture a screenshot. Images can not be captured when receiving in Scan Mode unless recording is disabled by removing the batteries and using AC power.</p>
+<p><strong>close</strong><br />Close all open serial ports.</p>
+<p><strong>dump</strong> <code>[hex|bin|text]</code><br /> Raw Mode with data slicer hex, binary, or text dump.</p>
+<p><strong>feed</strong> <code>[ON|OFF]</code><br /> Turn audio feed download ON or OFF. Use this command without an option to check current setting.</p>
+<p><strong>get</strong> <code>[match]</code><br /> List all matching parameters. Use get without an option for a full list of parameters.</p>
+<p><strong>hold</strong> <code>[system|department|channel] [ON|OFF]</code><br /> Set category hold status. Use this command without a switch option to check current setting.</p>
+<p><strong>load</strong> <code>[name]</code><br /> Load a new parameter set. Omit the name to load the default set.</p>
+<p><strong>monitor</strong><br />Start monitor mode. Press Ctrl-C to exit.</p>
+<p><strong>mute</strong> <code>[ON|OFF]</code><br /> Turn mute ON or OFF. Use this command without an option to check current setting.</p>
+<p><strong>next</strong> <code>[system|department|channel]</code><br /> Set next system, department or channel. This command defaults to channel control if an option is not specified.</p>
+<p><strong>open</strong><br />Connect HomePatrol to serial port.</p>
+<p><strong>prev</strong> <code>[system|department|channel]</code><br /> Set previous system, department or channel. This command defaults to channel control if an option is not specified.</p>
+<p><strong>program</strong><br />Set scanner to Program Mode. Only programming commands will be available.</p>
+<p><strong>raw</strong><br />Read raw discriminator data from scanner using set parameters.</p>
+<p><strong>record</strong> <code>[ON|OFF]</code><br /> Turn audio recording ON or OFF. Type record without an option to check current setting.</p>
+<p><strong>replay</strong><br />Set scanner to Replay Mode. Only replay commands will be available.</p>
+<p><strong>save</strong> <code>[name]</code><br /> Save current parameter set. Omit the name to save the default set.</p>
+<p><strong>scan</strong><br />Set HomePatrol to Scan Mode.</p>
+<p><strong>set</strong> <code>parameter=[value] ...</code><br /> Set one or more parameters. Use set with no options for a list of available parameters.</p>
+<p><strong>squelch</strong> <code>[0-15]</code><br /> Set squelch level on scanner.</p>
+<p><strong>status</strong><br />Display current system information in scan mode.</p>
+<p><strong>version</strong><br />Display program information</p>
+<p><strong>volume</strong> <code>[0-15]</code><br /> Set volume level on scanner.</p>
+<p><strong>web</strong> Start web server.</p>
+<h4 id="replay-mode-commands">Replay Mode Commands</h4>
+<p>These commands are only available in Replay Mode. Use the replay command to enter and the exit command to leave this mode.</p>
+<p>Example: <code>HomePatrol-1&gt; replay</code></p>
+<p><strong>exit</strong><br />Leave replay mode.</p>
+<p><strong>next</strong><br />Skip to next recording.</p>
+<p><strong>pause</strong><br />Pause playback.</p>
+<p><strong>prev</strong><br />Return to previous recording.</p>
+<p><strong>resume</strong><br />Resume playback.</p>
+<p><strong>status</strong><br />Display current system information in replay mode.</p>
+<h4 id="program-mode-commands">Program Mode Commands</h4>
+<p>These commands are only available in Program Mode. Use the program command to enter and the exit command to leave this mode.</p>
+<p>Example: <code>HomePatrol-1&gt; program</code></p>
+<p><strong>exit</strong><br />Exit programming mode.</p>
+<p><strong>favorites</strong> <code>[0-256] [ON|OFF]</code><br /> Turn favorites lists on or off. Use this command without options to display defined favorites lists.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>After checking all the <a href="#requirements">requirements</a>, if HPe-rc cannot connect to the HP-1, you can check the connection using the sample Windows programs provided by Uniden, or a terminal program such as PuTTY on any operating system. Make sure to select the correct serial port and port settings. If using another program shows no response from the scanner, check that the appropriate serial drivers are installed on the operating system. Feel free to contact us if the problem is specific to our software. Please include a debug log if possible by setting logfile=ON when running the program, plus any error messages. If there is a particular radio system that is not working, please include a link to the Radio Reference database with that information.</p>
+<h2 id="downloads">Downloads</h2>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Latest Versions</td>
+<td align="left"><a href="http://update.hp.xoynq.com/HPe-rc.32.LATEST.WIN.zip">Windows 32-bit</a></td>
+<td align="left"><a href="http://update.hp.xoynq.com/HPe-rc.64.LATEST.WIN.zip">Windows 64-bit</a></td>
+<td align="left"><a href="http://update.hp.xoynq.com/HPe-rc.LATEST.LINUX.tar.gz">Linux</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="contact-us">Contact Us</h2>
+<p>All helpful comments, suggestions and questions are appreciated. Contact us at <script type="text/javascript">
+<!--
+h='&#120;&#x6f;&#x79;&#110;&#x71;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#104;&#112;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#104;&#112;&#32;&#x61;&#116;&#32;&#120;&#x6f;&#x79;&#110;&#x71;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript>.</p>
+<p><em>HomePatrol is a registered trademark of Uniden America Corporation. This product contains Uniden proprietary and/or copyrighted information. Used under license.</em></p>
+<p>Privacy Policy: This site does not collect personally identifiable information except when specifically provided by you when contacting us. Any information you provide will be used solely to answer your request, and will not be shared any outside party. Non-personally-identifying information, including pages viewed, IP address and other traffic data, is collected for analytical purposes, and may be provided to third-party companies for this or any purpose, including targeted or interest-based advertising. This site uses third-party advertising companies to serve ads when you visit our website. These companies may use information about your visits to this and other websites in order to provide advertisements of interest to you. If you would like more information about this practice and to know your choices about not having this information used by these companies, visit the <a href="http://www.google.com/privacy_ads.html">Google Privacy Center</a>. To quickly opt-out of other third-party targeted advertising, use the Network Advertising Initiative <a href="http://www.networkadvertising.org/managing/opt_out.asp">Opt-out Tool</a>.</p>
