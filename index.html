@@ -1,48 +1,8 @@
----
-layout: default
-title: HPe-rc HomePatrol Remote Control
-overview: true
---- 
-
 <div class="figure">
 <img src="img/HPe-rc64.png" />
 </div>
 <h1 id="hpe-rc">HPe-rc</h1>
 <p>A Command-Line Utility for the Uniden HomePatrol</p>
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#latest-news">Latest News</a></li>
-<li><a href="#requirements">Requirements</a></li>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#operation">Operation</a>
-<ul>
-<li><a href="#basic-operation">Basic Operation</a>
-<ul>
-<li><a href="#non-interactive-operation">Non-Interactive Operation</a></li>
-</ul></li>
-<li><a href="#setting-parameters">Setting Parameters</a>
-<ul>
-<li><a href="#basic-parameters">Basic Parameters</a></li>
-<li><a href="#date-format">Date Format</a></li>
-<li><a href="#variable-substitution">Variable Substitution</a></li>
-</ul></li>
-<li><a href="#web-ui">Web UI</a></li>
-<li><a href="#monitor-mode">Monitor Mode</a></li>
-<li><a href="#audio-feed">Audio Feed</a></li>
-<li><a href="#mozTocId417001">Raw Data [Experimental]</a></li>
-<li><a href="#command-reference">Command Reference</a>
-<ul>
-<li><a href="#replay-mode-commands">Replay Mode Commands</a></li>
-<li><a href="#program-mode-commands">Program Mode Commands</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#troubleshooting">Troubleshooting</a></li>
-<li><a href="#downloads">Downloads</a></li>
-<li><a href="#contact-us">Contact Us</a></li>
-</ul>
-<div class="figure">
-<img src="img/HP-1.png" title="HomePatrol-1 Scanner" />
-</div>
 <h2 id="introduction">Introduction</h2>
 <p>HPe-rc is a command line program for controlling the Uniden HomePatrol-1 Scanner. All functions of the published remote control specification (2.05) are implemented, including downloading audio files and reading raw discriminator data.</p>
 <p>Binaries are available for Windows systems. The source code will run on any system with <a href="http://www.python.org/">Python</a> 2.6 or 2.7, and the <a href="http://pyserial.sourceforge.net/">pySerial</a> module.</p>
@@ -183,76 +143,76 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="center">%(tgid)%</td>
-<td align="center">Talkgroup ID or Frequency</td>
+<td align="left">%(tgid)%</td>
+<td align="left">Talkgroup ID or Frequency</td>
 </tr>
 <tr class="even">
-<td align="center">%(frequency)%</td>
-<td align="center">Frequency or Talkgroup ID</td>
+<td align="left">%(frequency)%</td>
+<td align="left">Frequency or Talkgroup ID</td>
 </tr>
 <tr class="odd">
-<td align="center">%(mode)%</td>
-<td align="center">AM, FM or NFM</td>
+<td align="left">%(mode)%</td>
+<td align="left">AM, FM or NFM</td>
 </tr>
 <tr class="even">
-<td align="center">%(att)%</td>
-<td align="center">Attenuator Setting [ON or OFF]</td>
+<td align="left">%(att)%</td>
+<td align="left">Attenuator Setting [ON or OFF]</td>
 </tr>
 <tr class="odd">
-<td align="center">%(subtone)%</td>
-<td align="center">CTCSS/DCS code</td>
+<td align="left">%(subtone)%</td>
+<td align="left">CTCSS/DCS code</td>
 </tr>
 <tr class="even">
-<td align="center">%(nac)%</td>
-<td align="center">NAC Code</td>
+<td align="left">%(nac)%</td>
+<td align="left">NAC Code</td>
 </tr>
 <tr class="odd">
-<td align="center">%(service_tag)%</td>
-<td align="center">Service Tag</td>
+<td align="left">%(service_tag)%</td>
+<td align="left">Service Tag</td>
 </tr>
 <tr class="even">
-<td align="center">%(system)%</td>
-<td align="center">System Name</td>
+<td align="left">%(system)%</td>
+<td align="left">System Name</td>
 </tr>
 <tr class="odd">
-<td align="center">%(department)%</td>
-<td align="center">Department Name</td>
+<td align="left">%(department)%</td>
+<td align="left">Department Name</td>
 </tr>
 <tr class="even">
-<td align="center">%(channel)%</td>
-<td align="center">Channel Name</td>
+<td align="left">%(channel)%</td>
+<td align="left">Channel Name</td>
 </tr>
 <tr class="odd">
-<td align="center">%(squelch)%</td>
-<td align="center">Squelch Setting [0-15]</td>
+<td align="left">%(squelch)%</td>
+<td align="left">Squelch Setting [0-15]</td>
 </tr>
 <tr class="even">
-<td align="center">%(mute)%</td>
-<td align="center">Mute Setting [ON or OFF]</td>
+<td align="left">%(mute)%</td>
+<td align="left">Mute Setting [ON or OFF]</td>
 </tr>
 <tr class="odd">
-<td align="center">%(signal)%</td>
-<td align="center">Signal Level [0-4]</td>
+<td align="left">%(signal)%</td>
+<td align="left">Signal Level [0-4]</td>
 </tr>
 <tr class="even">
-<td align="center">%(uid)%</td>
-<td align="center">Unit ID</td>
+<td align="left">%(uid)%</td>
+<td align="left">Unit ID</td>
 </tr>
 <tr class="odd">
-<td align="center">%(favorites_list)%</td>
-<td align="center">Favorites List</td>
+<td align="left">%(favorites_list)%</td>
+<td align="left">Favorites List</td>
 </tr>
 <tr class="even">
-<td align="center">%(config_set)%</td>
-<td align="center">Name of current config set</td>
+<td align="left">%(config_set)%</td>
+<td align="left">Name of current config set</td>
 </tr>
 <tr class="odd">
-<td align="center">%(date)%</td>
-<td align="center">Date/Time (see <a href="#date-format">Date Format</a>)</td>
+<td align="left">%(date)%</td>
+<td align="left">Date/Time (see <a href="#date-format">Date Format</a>)</td>
 </tr>
 <tr class="even">
-<td align="center">%(space)%</td>
-<td align="center">Space Character</td>
+<td align="left">%(space)%</td>
+<td align="left">Space Character</td>
 </tr>
 </tbody>
 </table>
@@ -306,13 +266,13 @@ overview: true
 <tr class="odd">
 <td align="left">RECORD</td>
 <td align="left">Toggle Recording Function</td>
-<td align="left">REPLAY </td>
+<td align="left">REPLAY</td>
 <td align="left">Replay Mode</td>
 </tr>
 <tr class="even">
-<td align="left">SQL  </td>
+<td align="left">SQL</td>
 <td align="left">Squelch Down/Up</td>
-<td align="left">VOL </td>
+<td align="left">VOL</td>
 <td align="left">Volume Down/Up</td>
 </tr>
 <tr class="odd">
@@ -357,48 +317,48 @@ overview: true
 </tr>
 </tbody>
 </table>
-<p>Example: <code>HomePatrol-1&gt; set mon_format=%(date)%,%(channel)%``,%(department)%,%(frequency)%</code> Example: <code>HomePatrol-1&gt; monitor</code></p>
+<p>Example: <code>HomePatrol-1&gt; set mon_format=%(date)%,%(channel)%``,%(department)%,%(frequency)%</code><br /> Example: <code>HomePatrol-1&gt; monitor</code></p>
 <p><strong>[Version 0.5+]</strong> Key commands can be used in monitor mode to control the scanner.</p>
 <table>
 <tbody>
 <tr class="odd">
-<td align="left">a</td>
+<td align="center">a</td>
 <td align="left">Avoid Channel</td>
 </tr>
 <tr class="even">
-<td align="left">c</td>
+<td align="center">c</td>
 <td align="left">Hold Channel</td>
 </tr>
 <tr class="odd">
-<td align="left">d</td>
+<td align="center">d</td>
 <td align="left">Hold Department</td>
 </tr>
 <tr class="even">
-<td align="left">s</td>
+<td align="center">s</td>
 <td align="left">Hold System</td>
 </tr>
 <tr class="odd">
-<td align="left">n</td>
+<td align="center">n</td>
 <td align="left">Next Channel</td>
 </tr>
 <tr class="even">
-<td align="left">p</td>
+<td align="center">p</td>
 <td align="left">Previous Channel</td>
 </tr>
 <tr class="odd">
-<td align="left">m</td>
+<td align="center">m</td>
 <td align="left">Mute</td>
 </tr>
 <tr class="even">
-<td align="left">+</td>
+<td align="center">+</td>
 <td align="left">Volume Up</td>
 </tr>
 <tr class="odd">
-<td align="left">-</td>
+<td align="center">-</td>
 <td align="left">Volume Down</td>
 </tr>
 <tr class="even">
-<td align="left">q</td>
+<td align="center">q</td>
 <td align="left">Exit Monitor Mode</td>
 </tr>
 </tbody>
@@ -476,9 +436,6 @@ overview: true
 </tr>
 </tbody>
 </table>
-<div class="figure">
-<img src="img/HPe-cap01.png" title="Raw Data Mode - Scanner Screen" />
-</div>
 <p>Use the set command to setup a raw data session. Frequencies entered in megahertz are automatically converted to hertz.</p>
 <p>Example: <code>HomePatrol-1&gt; set rd_freq=131.550 rd_file=ON</code></p>
 <p>Start raw mode by using the <a href="#HP_CMD-raw">raw</a> command. The data capture may be aborted by pressing the STOP button on the scanner screen, pressing Control-C on the keyboard, or by specifying a maximum recording time using the <strong>rd_rectime</strong> parameter.</p>
@@ -487,10 +444,10 @@ overview: true
 <p><strong>[Version 0.3+]</strong> To emulate a 2-level data slicer, specify <strong>port2</strong>. This should point to the input port of a virtual serial port pair. The second virtual port should be used by the decoding program. Under Windows, these ports requires setting up <a href="http://com0com.sourceforge.net/">com0com</a>. Two variables are used to control the data slicing mode: <strong>rd_sample</strong> indicates the samples per second made from the raw data. The baud rate of the signal divided by 75 is a good starting point. The <strong>rd_threshold</strong> variable controls the threshold between decoding a 0 and a 1; 64 is the default value.</p>
 <p><strong>[Version 0.5+]</strong> Specify <strong>rd_filter</strong> to control a low-band filter on the raw data output. Requires HP firmware 2.03+</p>
 <h3 id="command-reference">Command Reference</h3>
-<p><strong>att</strong> <code>[ON|OFF]</code><br />Turn global attenuation ON or OFF. Use this command without an option to check current setting.</p>
-<p><strong>avoid</strong> <code>[system|department|channel]</code> <code>[ON|OFF]</code> Set category avoid status. Use this command without a switch option to check current setting.</p>
+<p><strong>att</strong> <code>[ON|OFF]</code><br /> Turn global attenuation ON or OFF. Use this command without an option to check current setting.</p>
+<p><strong>avoid</strong> <code>[system|department|channel]</code> <code>[ON|OFF]</code><br /> Set category avoid status. Use this command without a switch option to check current setting.</p>
 <p><strong>bye</strong><br />Exit program.</p>
-<p><strong>cap</strong><br />Capture a screenshot. Images can not be captured when receiving in Scan Mode unless recording is disabled by removing the batteries and using AC power.</p>
+<p><strong>cap</strong><br /> Capture a screenshot. Images can not be captured when receiving in Scan Mode unless recording is disabled by removing the batteries and using AC power.</p>
 <p><strong>close</strong><br />Close all open serial ports.</p>
 <p><strong>dump</strong> <code>[hex|bin|text]</code><br /> Raw Mode with data slicer hex, binary, or text dump.</p>
 <p><strong>feed</strong> <code>[ON|OFF]</code><br /> Turn audio feed download ON or OFF. Use this command without an option to check current setting.</p>
@@ -513,7 +470,7 @@ overview: true
 <p><strong>status</strong><br />Display current system information in scan mode.</p>
 <p><strong>version</strong><br />Display program information</p>
 <p><strong>volume</strong> <code>[0-15]</code><br /> Set volume level on scanner.</p>
-<p><strong>web</strong> Start web server.</p>
+<p><strong>web</strong><br />Start web server.</p>
 <h4 id="replay-mode-commands">Replay Mode Commands</h4>
 <p>These commands are only available in Replay Mode. Use the replay command to enter and the exit command to leave this mode.</p>
 <p>Example: <code>HomePatrol-1&gt; replay</code></p>
