@@ -1,7 +1,8 @@
 <!--
 --- 
 layout: default 
-title: HPe-rc HomePatrol Remote Control 
+title: HPe-rc -- HomePatrol (Extreme) Remote Control 
+description: HPe-rc is remote control program that allows control of a HomePatrol-1 scanner with the Extreme Upgrade using a serial port. This software can be downloaded and used free of charge. Comments, suggestions and bug reports are welcome.
 overview: true 
 ---
 -->
@@ -34,8 +35,9 @@ Latest News
 -->
 
 ### {{ post.title }}
-
+<!--
 {{ post.content }}
+-->
 
 Requirements
 ------------

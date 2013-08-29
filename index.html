@@ -1,6 +1,7 @@
 --- 
 layout: default 
-title: HPe-rc HomePatrol Remote Control 
+title: HPe-rc -- HomePatrol (Extreme) Remote Control 
+description: HPe-rc is remote control program that allows control of a HomePatrol-1 scanner with the Extreme Upgrade using a serial port. This software can be downloaded and used free of charge. Comments, suggestions and bug reports are welcome.
 overview: true 
 ---
 <p><span class="left"><img src="img/HPe-rc64.png" title="HPe-rc" alt="HPe-rc" /></span></p>
@@ -17,7 +18,8 @@ overview: true
 -->
 
 <h3 id="post.title">{{ post.title }}</h3>
-<p>{{ post.content }}</p>
+{{ post.content }}
+
 <h2 id="requirements">Requirements</h2>
 <p>This program requires a HomePatrol Scanner with firmware version 2.02 or higher and the optional Extreme Upgrade. A USB connection and working USB Serial Port drivers are also required.</p>
 <p>USB Serial Port drivers for Windows systems are available from <a href="http://info.uniden.com/HomePatrol">Uniden</a>. Windows will also require MSVCR90.DLL, which can be downloaded from <a href="http://www.microsoft.com/download/en/details.aspx%20displaylang=en&amp;id=29">Microsoft</a> if it is not already available on the system. This software has been tested with the Uniden serial driver on Windows 2000, XP, Windows 7 and 8.</p>
@@ -51,32 +53,32 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left"><code>port1</code></td>
-<td align="left"><code>The serial port used to connect to the scanner</code></td>
+<td style="text-align: left;"><code>port1</code></td>
+<td style="text-align: left;"><code>The serial port used to connect to the scanner</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>port2</code></td>
-<td align="left"><code>A serial port used for raw data output</code></td>
+<td style="text-align: left;"><code>port2</code></td>
+<td style="text-align: left;"><code>A serial port used for raw data output</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>port1_baud</code></td>
-<td align="left"><code>Baud rate for port1</code></td>
+<td style="text-align: left;"><code>port1_baud</code></td>
+<td style="text-align: left;"><code>Baud rate for port1</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>port2_baud</code></td>
-<td align="left"><code>Baud rate for port2</code></td>
+<td style="text-align: left;"><code>port2_baud</code></td>
+<td style="text-align: left;"><code>Baud rate for port2</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>loglevel</code></td>
-<td align="left"><code>Set to 10 to display debugging information</code></td>
+<td style="text-align: left;"><code>loglevel</code></td>
+<td style="text-align: left;"><code>Set to 10 to display debugging information</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>logfile</code></td>
-<td align="left"><code>Set ON to log debugging information to disk</code></td>
+<td style="text-align: left;"><code>logfile</code></td>
+<td style="text-align: left;"><code>Set ON to log debugging information to disk</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>cfg_path</code></td>
-<td align="left"><code>Location to save config files</code></td>
+<td style="text-align: left;"><code>cfg_path</code></td>
+<td style="text-align: left;"><code>Location to save config files</code></td>
 </tr>
 </tbody>
 </table>
@@ -87,60 +89,60 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left">%a</td>
-<td align="left">Abbreviated Weekday</td>
+<td style="text-align: left;">%a</td>
+<td style="text-align: left;">Abbreviated Weekday</td>
 </tr>
 <tr class="even">
-<td align="left">%A</td>
-<td align="left">Full Weekday Name</td>
+<td style="text-align: left;">%A</td>
+<td style="text-align: left;">Full Weekday Name</td>
 </tr>
 <tr class="odd">
-<td align="left">%b</td>
-<td align="left">Abbreviated Month</td>
+<td style="text-align: left;">%b</td>
+<td style="text-align: left;">Abbreviated Month</td>
 </tr>
 <tr class="even">
-<td align="left">%B</td>
-<td align="left">Full Month Name</td>
+<td style="text-align: left;">%B</td>
+<td style="text-align: left;">Full Month Name</td>
 </tr>
 <tr class="odd">
-<td align="left">%d</td>
-<td align="left">Day of the Month [01-31]</td>
+<td style="text-align: left;">%d</td>
+<td style="text-align: left;">Day of the Month [01-31]</td>
 </tr>
 <tr class="even">
-<td align="left">%H</td>
-<td align="left">Hour, 24 hour [00-23]</td>
+<td style="text-align: left;">%H</td>
+<td style="text-align: left;">Hour, 24 hour [00-23]</td>
 </tr>
 <tr class="odd">
-<td align="left">%I</td>
-<td align="left">Hour, 12 hour [01-12]</td>
+<td style="text-align: left;">%I</td>
+<td style="text-align: left;">Hour, 12 hour [01-12]</td>
 </tr>
 <tr class="even">
-<td align="left">%j</td>
-<td align="left">Day of the Year [001-366]</td>
+<td style="text-align: left;">%j</td>
+<td style="text-align: left;">Day of the Year [001-366]</td>
 </tr>
 <tr class="odd">
-<td align="left">%m</td>
-<td align="left">Month [01-12]</td>
+<td style="text-align: left;">%m</td>
+<td style="text-align: left;">Month [01-12]</td>
 </tr>
 <tr class="even">
-<td align="left">%M</td>
-<td align="left">Minute [00-59]</td>
+<td style="text-align: left;">%M</td>
+<td style="text-align: left;">Minute [00-59]</td>
 </tr>
 <tr class="odd">
-<td align="left">%p</td>
-<td align="left">AM or PM</td>
+<td style="text-align: left;">%p</td>
+<td style="text-align: left;">AM or PM</td>
 </tr>
 <tr class="even">
-<td align="left">%S</td>
-<td align="left">Seconds [00-61]</td>
+<td style="text-align: left;">%S</td>
+<td style="text-align: left;">Seconds [00-61]</td>
 </tr>
 <tr class="odd">
-<td align="left">%y</td>
-<td align="left">Year, 2 digit [00-99]</td>
+<td style="text-align: left;">%y</td>
+<td style="text-align: left;">Year, 2 digit [00-99]</td>
 </tr>
 <tr class="even">
-<td align="left">%Y</td>
-<td align="left">Year, 4 digit</td>
+<td style="text-align: left;">%Y</td>
+<td style="text-align: left;">Year, 4 digit</td>
 </tr>
 </tbody>
 </table>
@@ -151,76 +153,76 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left">%(tgid)%</td>
-<td align="left">Talkgroup ID or Frequency</td>
+<td style="text-align: left;">%(tgid)%</td>
+<td style="text-align: left;">Talkgroup ID or Frequency</td>
 </tr>
 <tr class="even">
-<td align="left">%(frequency)%</td>
-<td align="left">Frequency or Talkgroup ID</td>
+<td style="text-align: left;">%(frequency)%</td>
+<td style="text-align: left;">Frequency or Talkgroup ID</td>
 </tr>
 <tr class="odd">
-<td align="left">%(mode)%</td>
-<td align="left">AM, FM or NFM</td>
+<td style="text-align: left;">%(mode)%</td>
+<td style="text-align: left;">AM, FM or NFM</td>
 </tr>
 <tr class="even">
-<td align="left">%(att)%</td>
-<td align="left">Attenuator Setting [ON or OFF]</td>
+<td style="text-align: left;">%(att)%</td>
+<td style="text-align: left;">Attenuator Setting [ON or OFF]</td>
 </tr>
 <tr class="odd">
-<td align="left">%(subtone)%</td>
-<td align="left">CTCSS/DCS code</td>
+<td style="text-align: left;">%(subtone)%</td>
+<td style="text-align: left;">CTCSS/DCS code</td>
 </tr>
 <tr class="even">
-<td align="left">%(nac)%</td>
-<td align="left">NAC Code</td>
+<td style="text-align: left;">%(nac)%</td>
+<td style="text-align: left;">NAC Code</td>
 </tr>
 <tr class="odd">
-<td align="left">%(service_tag)%</td>
-<td align="left">Service Tag</td>
+<td style="text-align: left;">%(service_tag)%</td>
+<td style="text-align: left;">Service Tag</td>
 </tr>
 <tr class="even">
-<td align="left">%(system)%</td>
-<td align="left">System Name</td>
+<td style="text-align: left;">%(system)%</td>
+<td style="text-align: left;">System Name</td>
 </tr>
 <tr class="odd">
-<td align="left">%(department)%</td>
-<td align="left">Department Name</td>
+<td style="text-align: left;">%(department)%</td>
+<td style="text-align: left;">Department Name</td>
 </tr>
 <tr class="even">
-<td align="left">%(channel)%</td>
-<td align="left">Channel Name</td>
+<td style="text-align: left;">%(channel)%</td>
+<td style="text-align: left;">Channel Name</td>
 </tr>
 <tr class="odd">
-<td align="left">%(squelch)%</td>
-<td align="left">Squelch Setting [0-15]</td>
+<td style="text-align: left;">%(squelch)%</td>
+<td style="text-align: left;">Squelch Setting [0-15]</td>
 </tr>
 <tr class="even">
-<td align="left">%(mute)%</td>
-<td align="left">Mute Setting [ON or OFF]</td>
+<td style="text-align: left;">%(mute)%</td>
+<td style="text-align: left;">Mute Setting [ON or OFF]</td>
 </tr>
 <tr class="odd">
-<td align="left">%(signal)%</td>
-<td align="left">Signal Level [0-4]</td>
+<td style="text-align: left;">%(signal)%</td>
+<td style="text-align: left;">Signal Level [0-4]</td>
 </tr>
 <tr class="even">
-<td align="left">%(uid)%</td>
-<td align="left">Unit ID</td>
+<td style="text-align: left;">%(uid)%</td>
+<td style="text-align: left;">Unit ID</td>
 </tr>
 <tr class="odd">
-<td align="left">%(favorites_list)%</td>
-<td align="left">Favorites List</td>
+<td style="text-align: left;">%(favorites_list)%</td>
+<td style="text-align: left;">Favorites List</td>
 </tr>
 <tr class="even">
-<td align="left">%(config_set)%</td>
-<td align="left">Name of current config set</td>
+<td style="text-align: left;">%(config_set)%</td>
+<td style="text-align: left;">Name of current config set</td>
 </tr>
 <tr class="odd">
-<td align="left">%(date)%</td>
-<td align="left">Date/Time (see <a href="#date-format">Date Format</a>)</td>
+<td style="text-align: left;">%(date)%</td>
+<td style="text-align: left;">Date/Time (see <a href="#date-format">Date Format</a>)</td>
 </tr>
 <tr class="even">
-<td align="left">%(space)%</td>
-<td align="left">Space Character</td>
+<td style="text-align: left;">%(space)%</td>
+<td style="text-align: left;">Space Character</td>
 </tr>
 </tbody>
 </table>
@@ -231,24 +233,24 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left"><code>web_port</code></td>
-<td align="left"><code>Web Server Port</code></td>
+<td style="text-align: left;"><code>web_port</code></td>
+<td style="text-align: left;"><code>Web Server Port</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>web_readonly</code></td>
-<td align="left"><code>Disable commands from web browser [ON or OFF]</code></td>
+<td style="text-align: left;"><code>web_readonly</code></td>
+<td style="text-align: left;"><code>Disable commands from web browser [ON or OFF]</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>web_ip</code></td>
-<td align="left"><code>List of IP addresses allowed access</code></td>
+<td style="text-align: left;"><code>web_ip</code></td>
+<td style="text-align: left;"><code>List of IP addresses allowed access</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>web_check</code></td>
-<td align="left"><code>Seconds between checks for audio files to download</code></td>
+<td style="text-align: left;"><code>web_check</code></td>
+<td style="text-align: left;"><code>Seconds between checks for audio files to download</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>ajax_refresh</code></td>
-<td align="left"><code>Data refresh rate in milliseconds</code></td>
+<td style="text-align: left;"><code>ajax_refresh</code></td>
+<td style="text-align: left;"><code>Data refresh rate in milliseconds</code></td>
 </tr>
 </tbody>
 </table>
@@ -265,24 +267,24 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left"><code>mon_format</code></td>
-<td align="left"><code>Format string</code></td>
+<td style="text-align: left;"><code>mon_format</code></td>
+<td style="text-align: left;"><code>Format string</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>mon_file</code></td>
-<td align="left"><code>Save to disk [ON or OFF]</code></td>
+<td style="text-align: left;"><code>mon_file</code></td>
+<td style="text-align: left;"><code>Save to disk [ON or OFF]</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>mon_cmd</code></td>
-<td align="left"><code>Allow key commands [ON or OFF]</code></td>
+<td style="text-align: left;"><code>mon_cmd</code></td>
+<td style="text-align: left;"><code>Allow key commands [ON or OFF]</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>mon_path</code></td>
-<td align="left"><code>Location to save monitor files</code></td>
+<td style="text-align: left;"><code>mon_path</code></td>
+<td style="text-align: left;"><code>Location to save monitor files</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>mon_expire</code></td>
-<td align="left"><code>Minimum time in seconds before channel data is expired</code></td>
+<td style="text-align: left;"><code>mon_expire</code></td>
+<td style="text-align: left;"><code>Minimum time in seconds before channel data is expired</code></td>
 </tr>
 </tbody>
 </table>
@@ -291,44 +293,44 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="center">a</td>
-<td align="left">Avoid Channel</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: left;">Avoid Channel</td>
 </tr>
 <tr class="even">
-<td align="center">c</td>
-<td align="left">Hold Channel</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: left;">Hold Channel</td>
 </tr>
 <tr class="odd">
-<td align="center">d</td>
-<td align="left">Hold Department</td>
+<td style="text-align: center;">d</td>
+<td style="text-align: left;">Hold Department</td>
 </tr>
 <tr class="even">
-<td align="center">s</td>
-<td align="left">Hold System</td>
+<td style="text-align: center;">s</td>
+<td style="text-align: left;">Hold System</td>
 </tr>
 <tr class="odd">
-<td align="center">n</td>
-<td align="left">Next Channel</td>
+<td style="text-align: center;">n</td>
+<td style="text-align: left;">Next Channel</td>
 </tr>
 <tr class="even">
-<td align="center">p</td>
-<td align="left">Previous Channel</td>
+<td style="text-align: center;">p</td>
+<td style="text-align: left;">Previous Channel</td>
 </tr>
 <tr class="odd">
-<td align="center">m</td>
-<td align="left">Mute</td>
+<td style="text-align: center;">m</td>
+<td style="text-align: left;">Mute</td>
 </tr>
 <tr class="even">
-<td align="center">+</td>
-<td align="left">Volume Up</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: left;">Volume Up</td>
 </tr>
 <tr class="odd">
-<td align="center">-</td>
-<td align="left">Volume Down</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Volume Down</td>
 </tr>
 <tr class="even">
-<td align="center">q</td>
-<td align="left">Exit Monitor Mode</td>
+<td style="text-align: center;">q</td>
+<td style="text-align: left;">Exit Monitor Mode</td>
 </tr>
 </tbody>
 </table>
@@ -338,16 +340,16 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left"><code>feed_loop</code></td>
-<td align="left"><code>Continue to check for new files [ON or OFF]</code></td>
+<td style="text-align: left;"><code>feed_loop</code></td>
+<td style="text-align: left;"><code>Continue to check for new files [ON or OFF]</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>feed_delay</code></td>
-<td align="left"><code>Milliseconds between checks for new files</code></td>
+<td style="text-align: left;"><code>feed_delay</code></td>
+<td style="text-align: left;"><code>Milliseconds between checks for new files</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>feed_path</code></td>
-<td align="left"><code>Location to save audio files</code></td>
+<td style="text-align: left;"><code>feed_path</code></td>
+<td style="text-align: left;"><code>Location to save audio files</code></td>
 </tr>
 </tbody>
 </table>
@@ -364,44 +366,44 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left"><code>rd_freq</code></td>
-<td align="left"><code>Frequency to monitor [HZ]</code></td>
+<td style="text-align: left;"><code>rd_freq</code></td>
+<td style="text-align: left;"><code>Frequency to monitor [HZ]</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>rd_mode</code></td>
-<td align="left"><code>Modulation mode [AUTO, AM, FM OR NFM]</code></td>
+<td style="text-align: left;"><code>rd_mode</code></td>
+<td style="text-align: left;"><code>Modulation mode [AUTO, AM, FM OR NFM]</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>rd_att</code></td>
-<td align="left"><code>Attenuator setting [ON or OFF]</code></td>
+<td style="text-align: left;"><code>rd_att</code></td>
+<td style="text-align: left;"><code>Attenuator setting [ON or OFF]</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>rd_timeout</code></td>
-<td align="left"><code>Seconds with no input before timeout</code></td>
+<td style="text-align: left;"><code>rd_timeout</code></td>
+<td style="text-align: left;"><code>Seconds with no input before timeout</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>rd_rectime</code></td>
-<td align="left"><code>Seconds to record data</code></td>
+<td style="text-align: left;"><code>rd_rectime</code></td>
+<td style="text-align: left;"><code>Seconds to record data</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>rd_file</code></td>
-<td align="left"><code>Write to file [ON or OFF]</code></td>
+<td style="text-align: left;"><code>rd_file</code></td>
+<td style="text-align: left;"><code>Write to file [ON or OFF]</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>rd_path</code></td>
-<td align="left"><code>Location to save data files</code></td>
+<td style="text-align: left;"><code>rd_path</code></td>
+<td style="text-align: left;"><code>Location to save data files</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>rd_sample</code></td>
-<td align="left"><code>Data slicer sample size</code></td>
+<td style="text-align: left;"><code>rd_sample</code></td>
+<td style="text-align: left;"><code>Data slicer sample size</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>rd_filter</code></td>
-<td align="left"><code>Low-Pass filter [ON or OFF]</code></td>
+<td style="text-align: left;"><code>rd_filter</code></td>
+<td style="text-align: left;"><code>Low-Pass filter [ON or OFF]</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>rd_threshold</code></td>
-<td align="left"><code>Data slicer decode threshold level</code></td>
+<td style="text-align: left;"><code>rd_threshold</code></td>
+<td style="text-align: left;"><code>Data slicer decode threshold level</code></td>
 </tr>
 </tbody>
 </table>
@@ -537,9 +539,9 @@ overview: true
 <table>
 <tbody>
 <tr class="odd">
-<td align="left">Latest Binaries</td>
-<td align="left"><a href="http://update.hp.xoynq.com/HPe-rc.32.LATEST.WIN.zip">Windows 32-bit</a></td>
-<td align="left"><a href="http://update.hp.xoynq.com/HPe-rc.64.LATEST.WIN.zip">Windows 64-bit</a></td>
+<td style="text-align: left;">Latest Binaries</td>
+<td style="text-align: left;"><a href="http://update.hp.xoynq.com/HPe-rc.32.LATEST.WIN.zip">Windows 32-bit</a></td>
+<td style="text-align: left;"><a href="http://update.hp.xoynq.com/HPe-rc.64.LATEST.WIN.zip">Windows 64-bit</a></td>
 </tr>
 </tbody>
 </table>
