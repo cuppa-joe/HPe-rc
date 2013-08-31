@@ -12,7 +12,6 @@ HPe-rc
 ======
 
 A Command-Line Utility for the Uniden HomePatrol
-
 <span class='right'>![HomePatrol-1 Scanner](img/HP-1.png "HomePatrol-1 Scanner")</span>
 
 Introduction
@@ -59,7 +58,11 @@ Installation
 
 For Microsoft Windows, HPe-rc is distributed as a compressed (zip)
 archive which includes a self-extracting installer. Downloads for 64-bit
-and 32-bit systems are available. Extract and run the installer.
+and 32-bit systems are available. Extract and run the installer. 
+
+Two executables are available on Windows system: `HPe-rc Console.exe` starts
+a text command-line version. `HPe-rc.exe` automatically starts the web-based
+interface. 
 
 For Linux and similar systems, HPe-rc is distributed as a compressed
 (tar.gz) archive which contains the program source. Extract and run
@@ -93,15 +96,14 @@ available commands.
 
 #### Non-Interactive Operation
 
-Commands may also be read from a text file. Enter one command per line,
-then pipe the file to HPe-rc.
+Set commands may also be read from a text file. Enter one command per line.
 
-Example: `C:\Program Files\HPe-rc>hpe-rc port1=com6 <commands.txt`
+Example: `C:\Program Files\HPe-rc>hpe-rc --set @command.txt`
 
 A single command may be specified on the command-line by using the
 **cmd** parameter. HPe-rc will execute the command, then exit.
 
-Example: `C:\Program Files\HPe-rc>hpe-rc cmd=web`
+Example: `C:\Program Files\HPe-rc>hpe-rc --set cmd=web`
 
 ### Setting Parameters
 
@@ -109,7 +111,7 @@ Parameters can be set on the command line, or within the program itself.
 Multiple parameters can set on one line, and keywords may be specified
 as upper or lower case.
 
-Example: `C:\Program Files\HPe-rc>hpe-rc loglevel=10 logfile=ON`
+Example: `C:\Program Files\HPe-rc>hpe-rc --set loglevel=10 logfile=ON`
 
 Or: `HomePatrol-1> set loglevel=10 logfile=ON`
 
@@ -224,13 +226,14 @@ is connected. This will be <http://localhost:8000> or
 are running on the same machine. The port and other parameters can be
 changed using the [set](#command-reference) command.
 
-  ---------------- ------------------------------------------------------
+  ---------------- ----------------------------------------------------------
   `web_port`       `Web Server Port`
   `web_readonly`   `Disable commands from web browser [ON or OFF]`
   `web_ip`         `List of IP addresses allowed access`
   `web_check`      `Seconds between checks for audio files to download`
+  `web_browser`    `Use the system default web browser to load the Web UI`
   `ajax_refresh`   `Data refresh rate in milliseconds`
-  ---------------- ------------------------------------------------------
+  ---------------- ----------------------------------------------------------
 
 See [Monitor Mode](#monitor-mode) for additional settings that also
 apply when using the Web UI.
