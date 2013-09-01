@@ -72,14 +72,6 @@ HASH_ITEMS=['frequency','channel','channel_hold','channel_avoid','department','d
 
 queue=Queue.Queue()
 
-def build_form():
-    for x in range(0,256):
-        ns=str(x).zfill(3)
-        print '<div class="inputset hidden">'
-        print '<label for="status_'+ns+'" id="name_'+ns+'">'+ns+'</label>'
-        print '<input type="checkbox" id="status_'+ns+'" value="ON">'
-        print '</div>'
-
 def ok():
     print 'Ok.'
 
@@ -335,8 +327,9 @@ def web_app(environ, start_response):
     FILEMAP = {'feeds.html','monitor.html'}
     PATHMAP = {'feeds' : config['feed_path'], 'monitor' : config['mon_path']}
     POSTMAP = {'post/config' : 'config' , 'post/favorites': 'favorites'}
+    REDIRECT = {'jquery.js': 'jquery-1.8.2.min.js', '' : 'hpe-rc.html'}
     FILES = {'hpe-rc.html' : None, 'base.css' : None, 'base.js' : None, 'HPe-rc64.png': None, 'hpe-rc.css' : None,
-    'hpe-rc.js' : None, 'jquery.js': 'jquery-1.10.2.min.js', 'favicon.ico' : None ,'config.html': None ,'favorites.html': None,
+    'hpe-rc.js' : None, 'jquery-1.10.2.min.js': None, 'jquery-1.8.2.min.js': None, 'favicon.ico' : None ,'config.html': None ,'favorites.html': None,
     'feeds.html' : 'files.html', 'monitor.html': 'files.html'}
 
     response=None
@@ -419,14 +412,15 @@ def web_app(environ, start_response):
                 headers = [('Content-type', 'text/html')]
                 status = '204 No Content' 
     if response==None:
-        if request_path=='':                                             
-            status = '302 Found'
-            headers = [('Content-type', 'text/html'), ('Location', ''.join(['/','hpe-rc.html']))]
-            response=''
-        else:                                             
-            status = '404 Not Found'
-            headers = [('Content-type', 'text/html')]
-            response=status
+        for request, redirect in REDIRECT.items():
+            if request_path==request:                                             
+                status = '302 Found'
+                headers = [('Content-type', 'text/html'), ('Location', ''.join(['/',redirect]))]
+                response=''    
+    if response==None:            
+        status = '404 Not Found'
+        headers = [('Content-type', 'text/html')]
+        response=status
     headers.append(('Content-Length',str(len(response))))
     start_response(status, headers)
     return [response]

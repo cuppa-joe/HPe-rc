@@ -358,8 +358,7 @@ function build_buttons() {
         $('[id^=connect-button] .spin').removeClass("spinner");
         $('[id^=connect-button] .text').removeClass("hidden");
         })
-        
-        
+         
         } 
         });
 
