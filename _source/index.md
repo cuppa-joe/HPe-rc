@@ -538,6 +538,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
   ----------------- ----------------------------------------------------------------------- -----------------------------------------------------------------------
   Latest Binaries   [Windows 32-bit](http://update.hp.xoynq.com/HPe-rc.32.LATEST.WIN.zip)   [Windows 64-bit](http://update.hp.xoynq.com/HPe-rc.64.LATEST.WIN.zip)
+  Latest Source     [.zip](http://update.hp.xoynq.com/HPe-rc.LATEST.SOURCE.zip)             [.tar.gz](http://update.hp.xoynq.com/HPe-rc.LATEST.SOURCE.tar.gz)
   ----------------- ----------------------------------------------------------------------- -----------------------------------------------------------------------
 
 Contact Us
