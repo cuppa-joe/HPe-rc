@@ -327,7 +327,7 @@ def web_app(environ, start_response):
     FILEMAP = {'feeds.html','monitor.html'}
     PATHMAP = {'feeds' : config['feed_path'], 'monitor' : config['mon_path']}
     POSTMAP = {'post/config' : 'config' , 'post/favorites': 'favorites'}
-    REDIRECT = {'jquery.js': 'jquery-1.8.2.min.js', '' : 'hpe-rc.html'}
+    REDIRECT = {'jquery.js': 'jquery-1.10.2.min.js', '' : 'hpe-rc.html'}
     FILES = {'hpe-rc.html' : None, 'base.css' : None, 'base.js' : None, 'HPe-rc64.png': None, 'hpe-rc.css' : None,
     'hpe-rc.js' : None, 'jquery-1.10.2.min.js': None, 'jquery-1.8.2.min.js': None, 'favicon.ico' : None ,'config.html': None ,'favorites.html': None,
     'feeds.html' : 'files.html', 'monitor.html': 'files.html'}
