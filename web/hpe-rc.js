@@ -36,8 +36,8 @@ $.each(data, function(name, value) {
     $(".debug").toggle();
     }
     s_update_id = setInterval(s_update, ajax_refresh);
-    g_update_id = setInterval(g_update, ajax_refresh*3);
-    vs_update_id = setInterval(vs_update, ajax_refresh*4);
+    g_update_id = setInterval(g_update, ajax_refresh+250);
+    vs_update_id = setInterval(vs_update, ajax_refresh+310);
 }
 
 function globals(data)

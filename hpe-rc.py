@@ -34,14 +34,14 @@ import defs
 
 PROMPT = 'Not Connected'
 UNIDEN = 'This product contains Uniden proprietary and/or copyrighted information. \nUsed under license.\n'
-OK_VAR = ['port1','port2','port1_baud','port2_baud','loglevel','log_file','log_path','rd_input','rd_filter','rd_level','rd_sample','rd_threshold','rd_freq','rd_mode','rd_att','rd_rectime','rd_timeout','rd_file','rd_path','dateformat','mon_cmd','mon_file','mon_expire','mon_format','mon_path','cfg_path','feed_loop','feed_path','feed_delay','web_host','web_port','web_readonly','web_ip','web_browser','web_check','cmd','update_check']
-INT_VAR = ['loglevel','port1_baud','port2_baud','rd_sample','rd_threshold','rd_timeout','rd_rectime','rd_level','feed_delay','mon_expire','web_port','web_check','update_check']
+OK_VAR = ['port1','port2','port1_baud','port2_baud','loglevel','log_file','log_path','rd_input','rd_filter','rd_level','rd_sample','rd_threshold','rd_freq','rd_mode','rd_att','rd_rectime','rd_timeout','rd_file','rd_path','dateformat','mon_cmd','mon_file','mon_expire','mon_format','mon_path','cfg_path','feed_loop','feed_path','feed_delay','web_host','web_port','web_readonly','web_ip','web_browser','web_check','cmd','ajax_refresh']
+INT_VAR = ['loglevel','port1_baud','port2_baud','rd_sample','rd_threshold','rd_timeout','rd_rectime','rd_level','feed_delay','mon_expire','web_port','web_check','update_check','ajax_refresh']
 OOO_VAR = ['rd_att', 'log_file', 'rd_file', 'mon_file','mon_cmd','feed_loop','rd_scan','rd_filter','web','web_readonly','web_browser']
 DIR_VAR = ['rd_path','feed_path','log_path','mon_path','cfg_path']
 MOD_VAR = ['rd_mode']
 FRQ_VAR = ['rd_freq']
 LIST_VAR = ['web_ip']
-OPEN_CMD = ['volume','scan','raw','dump','mute','close','cap','att','record','squelch','replay','status','feed','monitor','hold','avoid','next','prev', 'program', 'cmd']
+OPEN_CMD = ['volume','scan','raw','dump','mute','close','cap','att','record','squelch','replay','status','feed','monitor','hold','avoid','next','prev', 'program', 'debug']
 
 SUB_DICT = {'space': ' ','program': defs.PROGRAM}
 
@@ -426,9 +426,13 @@ def web_app(environ, start_response):
     return [response]
     
 def web_server(command='start', port=8000):
-    from wsgiref.simple_server import make_server
+    import wsgiref.simple_server
     global httpd
-    
+   
+    class MyWSGIRequestHandler(wsgiref.simple_server.WSGIRequestHandler):
+        def address_string(self):           # Disable rDNS lookup on every request. Thanks, Andy!
+            return self.client_address[0]
+
     class LogDevice():
         def write(self, s):
             logging.debug(s)
@@ -454,7 +458,7 @@ def web_server(command='start', port=8000):
     
     if command=='start':
         if not httpd:
-            httpd = make_server(config['web_host'], config['web_port'], web_app)
+            httpd = wsgiref.simple_server.make_server(config['web_host'], config['web_port'], web_app, handler_class=MyWSGIRequestHandler)
             server_thread().start()
         else:
             logging.warning('Web Server already started.')
@@ -495,6 +499,67 @@ class HP_PROGRAM(cmd.Cmd):
         Turn favorites lists on or off. Use this command without options
         to display defined favorites lists."""
         HP_fav_list(ser1, line)
+
+class HP_DEBUG(cmd.Cmd):
+    global config, ser1, ser2
+    
+    prompt = ''.join(['Debug Mode','> '])
+    intro = 'WARNING: Use these commands with caution!\nYou may have to restart/reconnect your scanner to return to normal operation.\n'
+    doc_header = 'Available Commands'
+    misc_header = 'Additional Topics'
+    undoc_header = 'Other Commands'
+    ruler = '-'
+ 
+    def emptyline(self):
+        pass
+        
+    def postcmd(self, stop, line):
+        print
+        return cmd.Cmd.postcmd(self, stop, line)
+    
+    def precmd(self, line):
+        print
+        return cmd.Cmd.precmd(self, line)
+   
+    def help_help(self):
+        print 'Type help [topic] for more information on commands and operation.'
+
+    def do_exit(self,line):
+        """exit
+        Exit debug mode."""
+        return True
+
+    def do_cmd(self, line):
+        """cmd
+        Send arbitrary command string"""
+        HP_any_cmd(ser1, line)
+ 
+    def do_checksum(self, status):
+        """checksum [ON|OFF]
+        Turn HP-1 command checksums ON or OFF."""
+        HP_checksum(ser1, status)
+ 
+    def do_debugmode(self,line):
+        """debugmode
+        Start HP-1 debug mode. Reset scanner to return to normal operation."""
+        ser1.write('\t'.join(['cdb','2']))
+        ser1.write('\r')
+        rs=r2r(ser1)
+        print rs
+        while True:
+            try:
+                rs=r2r(ser1)
+                print rs[0]
+            except KeyboardInterrupt:         
+                print
+                ser1.flushInput()
+                ser1.write('RDB')
+                ser1.write('\r')
+                ser1.flushInput()
+                time.sleep(1)
+                rs=r2r(ser1, flush=True)
+                print rs
+                break
 
 class HP_REPLAY(cmd.Cmd):
     global config, ser1, ser2
@@ -605,37 +670,6 @@ class HP_CMD(cmd.Cmd):
         """test
         Test command."""
         ok()
-
-    def do_cmd(self, line):
-        """cmd
-        Send arbitrary command string"""
-        HP_any_cmd(ser1, line)
-        ok()
- 
-    def do_checksum(self, status):
-        """checksum [ON|OFF]
-        Turn HP-1 command checksums ON or OFF."""
-        HP_checksum(ser1, status)
- 
-    def do_debugmode(self,line):
-        ser1.write('\t'.join(['cdb','2']))
-        ser1.write('\r')
-        rs=r2r(ser1)
-        print rs
-        while True:
-            try:
-                rs=r2r(ser1)
-                print rs[0]
-            except KeyboardInterrupt:         
-                print
-                ser1.flushInput()
-                ser1.write('RDB')
-                ser1.write('\r')
-                ser.flushInput()
-                time.sleep(1)
-                rs=r2r(ser1, flush=True)
-                print rs
-                break
  
     def do_web(self,line):
         """web
@@ -717,6 +751,11 @@ class HP_CMD(cmd.Cmd):
         HP_program_mode(ser1, enter=True)
         HP_PROGRAM().cmdloop()
 
+    def do_debug(self, line):
+        """debug
+        Enter Debug Mode. Only debug commands will be available."""            
+        HP_DEBUG().cmdloop()
+
     def do_replay(self, line):
         """replay
         Set scanner to Replay Mode. Only replay commands will be available."""            
@@ -757,6 +796,8 @@ class HP_CMD(cmd.Cmd):
         Connect HomePatrol to serial port.""" 
         HP_open(config['port1'], config['port2'])
         if config['hp_model'] and ser1:
+            if config['hp_model'] not in defs.SUPPORTED_SCANNERS:
+                logging.warning('This scanner is not supported by this program.')
             self.prompt = ''.join([config['hp_model'],'> '])
   
     def do_close(self, line):
@@ -1055,10 +1096,10 @@ def HP_open(port1, port2):
             config['hp_firmware']=firmware
             config['hp_database']=database
         except Exception as detail:
-            logging.error('HomePatrol not found.')
+            logging.error('Scanner not found.')
             ser1=None
     if ser1:
-        print ' '.join([model,firmware,'connected.',''.join(['(',config['port1'],')'])])
+        logging.info(' '.join([model,firmware,'connected.',''.join(['(',config['port1'],')'])]))
         check_database(config['hp_database'])
     if port2:
         try:
@@ -1067,8 +1108,7 @@ def HP_open(port1, port2):
             logging.error(' '.join(['Unable to open port:',str(port2),'(Output)']))
             port2 = None
     if ser2:
-        print ' '.join(['Data port connected.',''.join(['(',config['port2'],')'])])
-
+        logging.info(' '.join(['Data port connected.',''.join(['(',config['port2'],')'])]))
 
 def HP_screencap(ser):
     logging.debug('CMD : Capture Screenshot')
@@ -1083,7 +1123,6 @@ def HP_checksum(ser, status):
     if status.upper() in ['','ON','OFF']:
         flag=digit_switch(status.upper())
         ser.write(command('cdb','M', flag=flag))    
-        print command('cdb','M', flag=flag)
         rs=r2r(ser)
         if not checkerr(rs):
             ok()
@@ -1136,8 +1175,7 @@ def HP_any_cmd(ser, line='RMT MODEL', display=True):
     rs = r2r(ser)
     if not checkerr(rs, display=display):
         if display:
-            print rs
-            print
+            logging.info(rs)
 
 def HP_replay_cmd(ser, type='NEXT', display=True):
     logging.debug(''.join(['CMD : Replay ',type]))
@@ -1953,7 +1991,7 @@ if __name__ == '__main__':
     'web_ip' : None,
     'web_check' : 0,
     'update_check' : 0,
-    'ajax_refresh' : 200,
+    'ajax_refresh' : 330,
     'ajax_debug' : False,
     'cmd' : None,
     'hp_model' : None,
