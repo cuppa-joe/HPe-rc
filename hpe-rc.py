@@ -41,7 +41,7 @@ DIR_VAR = ['rd_path','feed_path','log_path','mon_path','cfg_path']
 MOD_VAR = ['rd_mode']
 FRQ_VAR = ['rd_freq']
 LIST_VAR = ['web_ip']
-OPEN_CMD = ['volume','scan','raw','dump','mute','close','cap','att','record','squelch','replay','status','feed','monitor','hold','avoid','next','prev', 'program']
+OPEN_CMD = ['volume','scan','raw','dump','mute','close','cap','att','record','squelch','replay','status','feed','monitor','hold','avoid','next','prev', 'program', 'cmd']
 
 SUB_DICT = {'space': ' ','program': defs.PROGRAM}
 
@@ -605,6 +605,37 @@ class HP_CMD(cmd.Cmd):
         """test
         Test command."""
         ok()
+
+    def do_cmd(self, line):
+        """cmd
+        Send arbitrary command string"""
+        HP_any_cmd(ser1, line)
+        ok()
+ 
+    def do_checksum(self, status):
+        """checksum [ON|OFF]
+        Turn HP-1 command checksums ON or OFF."""
+        HP_checksum(ser1, status)
+ 
+    def do_debugmode(self,line):
+        ser1.write('\t'.join(['cdb','2']))
+        ser1.write('\r')
+        rs=r2r(ser1)
+        print rs
+        while True:
+            try:
+                rs=r2r(ser1)
+                print rs[0]
+            except KeyboardInterrupt:         
+                print
+                ser1.flushInput()
+                ser1.write('RDB')
+                ser1.write('\r')
+                ser.flushInput()
+                time.sleep(1)
+                rs=r2r(ser1, flush=True)
+                print rs
+                break
  
     def do_web(self,line):
         """web
@@ -813,14 +844,18 @@ class HP_CMD(cmd.Cmd):
 def checksum(st):
     return str(reduce(lambda x,y:x+y, map(ord, st)))
 
-def command(cmd,*args):
+def command(cmd, *args, **kwargs):
     """Build command string for HP"""
-    base = ''.join([cmd,'\t','\t'.join([str(x) for x in args]),'\t'])
-    return ''.join([base,cmd =='cdb' and '1' or checksum(base),'\r'])
+    flag=kwargs.get('flag', None)
+    if cmd:
+        base = ''.join([cmd,'\t','\t'.join([str(x) for x in args]),'\t'])
+    else:
+        base = ''.join(['\t'.join([str(x) for x in args[0]]),'\t'])
+    return ''.join([base, flag and flag or checksum(base),'\r'])
 
 def checkerr(*args, **kwargs):
     error=False
-    display= kwargs.get('display', True)
+    display=kwargs.get('display', True)
     status=0
     if 'ERR' in args[0]:
         status=1
@@ -1037,11 +1072,23 @@ def HP_open(port1, port2):
 
 def HP_screencap(ser):
     logging.debug('CMD : Capture Screenshot')
-    ser.write(command('cdb','C')) # cdb<tab>C<tab>1<enter>
+    ser.write(command('cdb','C', flag='1')) # cdb<tab>C<tab>1<enter>
     rs=r2r(ser)
     if not checkerr(rs):
         ser.write('cap\r')
         ok()
+
+def HP_checksum(ser, status):
+    logging.debug('CMD : Checksum')
+    if status.upper() in ['','ON','OFF']:
+        flag=digit_switch(status.upper())
+        ser.write(command('cdb','M', flag=flag))    
+        print command('cdb','M', flag=flag)
+        rs=r2r(ser)
+        if not checkerr(rs):
+            ok()
+    else:
+        logging.error('Select ON or OFF') 
 
 def HP_fav_list(ser, cmd='', display=True):
     global favorites
@@ -1082,6 +1129,15 @@ def HP_program_mode(ser, enter=True, display=True):
     if not checkerr(rs) and display:
         ok()
     ser.flush()
+
+def HP_any_cmd(ser, line='RMT MODEL', display=True):
+    logging.debug(''.join(['CMD : ',line]))
+    ser.write(command(None, line.upper().split()))
+    rs = r2r(ser)
+    if not checkerr(rs, display=display):
+        if display:
+            print rs
+            print
 
 def HP_replay_cmd(ser, type='NEXT', display=True):
     logging.debug(''.join(['CMD : Replay ',type]))
@@ -1125,7 +1181,6 @@ def HP_cmd_on_off(ser,status=None,type='MUTE', cmd='RMT', display=True):
         else:
             ser.write(command(cmd,type)) 
         rs = r2r(ser)
-        #rs = response(ser.readline())
         if not checkerr(rs, display=display):
             if status==None:
                 if display:
