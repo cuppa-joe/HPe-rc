@@ -531,8 +531,16 @@ class HP_DEBUG(cmd.Cmd):
 
     def do_cmd(self, line):
         """cmd
-        Send arbitrary command string"""
+        Send formatted command string to scanner."""
         HP_any_cmd(ser1, line)
+    
+    def do_send(self, line):
+        """send
+        Send string to scanner and read response."""
+        ser1.write(line)
+        ser1.write('\r')
+        rs=r2r(ser1)
+        logging.info(rs)
  
     def do_checksum(self, status):
         """checksum [ON|OFF]
@@ -1085,19 +1093,25 @@ def HP_open(port1, port2):
         else:
             logging.info('Port is OPEN')
     if port1:
+        model,firmware,database,help=None, None, None, None
         try:
             ser1.flush()
             logging.debug(' '.join(['Open',':',config['port1']]))
             model=HP_model(ser1)
             logging.debug(' '.join(['Model:',model]))
-            firmware,database,help=HP_version(ser1)
-            logging.debug(' '.join(['Version:',firmware,'HPDB:',database,'HELP:',help]))
             config['hp_model']=model
-            config['hp_firmware']=firmware
-            config['hp_database']=database
         except Exception as detail:
             logging.error('Scanner not found.')
             ser1=None
+        if ser1:
+            try:
+                firmware,database,help=HP_version(ser1)
+                logging.debug(' '.join(['Version:',firmware,'HPDB:',database,'HELP:',help]))
+                config['hp_firmware']=firmware
+                config['hp_database']=database
+            except Exception as detail:
+                logging.error('Unable to read scanner version information.') 
+   
     if ser1:
         logging.info(' '.join([model,firmware,'connected.',''.join(['(',config['port1'],')'])]))
         check_database(config['hp_database'])
