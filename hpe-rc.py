@@ -1105,7 +1105,10 @@ def HP_open(port1, port2):
             ser1=None
         if ser1:
             try:
-                firmware,database,help=HP_version(ser1)
+                hasSubfirmwareVersion=False
+                if model=='HomePatrol-2':
+                    hasSubfirmwareVersion=True
+                firmware,database,help=HP_version(ser1, hasSubfirmwareVersion)
                 logging.debug(' '.join(['Version:',firmware,'HPDB:',database,'HELP:',help]))
                 config['hp_firmware']=firmware
                 config['hp_database']=database
@@ -1404,12 +1407,15 @@ def HP_model(ser):
         return rs[2]
     return 'None'
 
-def HP_version(ser):
+def HP_version(ser, hasSubfirmwareVersion=False):
     logging.debug('CMD : Get Version')
     ser.write(command('RMT','VERSION'))
     rs = r2r(ser)
     if not checkerr(rs):
-        return rs[2],rs[3],rs[4]
+        if hasSubfirmwareVersion:
+            return rs[2],rs[4],rs[5]
+        else:
+            return rs[2],rs[3],rs[4]
     return '','',''
 
 def HP_status(ser, display=True):
