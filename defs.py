@@ -1,8 +1,8 @@
 VERSION = '0.9.7.1'
 PROGRAM = 'HPe-rc'
-DESCRIPTION = 'HPe-rc is a utility program for controlling the Uniden HomePatrol-1 Scanner.'
+DESCRIPTION = 'HPe-rc is a utility program for controlling the Uniden HomePatrol-1 and HomePatrol-2 Scanners.'
 UPDATE_CHECK = 'http://update.hp.xoynq.com/'
-SUPPORTED_SCANNERS = ['HomePatrol-1']
+SUPPORTED_SCANNERS = ['HomePatrol-1', 'HomePatrol-2']
 
 OTHER = {
     '0' : 'None',
